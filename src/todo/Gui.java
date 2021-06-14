@@ -1,12 +1,14 @@
 package todo;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Font;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 public class Gui{
@@ -15,6 +17,7 @@ public class Gui{
     MPanel panel;
     MButton longTerm, shortTerm, daily;
     JLabel mainText;
+    JTextArea lists;
             
      Gui(){
         
@@ -22,15 +25,19 @@ public class Gui{
         frame.setLayout(null);
         frame.setSize(800,560);
         frame.setLocationRelativeTo(null);
+        frame.setResizable(false);
         frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
         
         panel = new MPanel();
         frame.add(panel);
         
         daily = new MButton(35, 70, "Daily");
+        daily.setBorder(BorderFactory.createMatteBorder(0, 0, 3, 0, Color.WHITE));
         panel.add(daily);
+        
         shortTerm = new MButton(310, 70, "Short Term");
         panel.add(shortTerm);
+        
         longTerm = new MButton(600, 70, "Long Term");
         panel.add(longTerm);
         
@@ -40,8 +47,12 @@ public class Gui{
         mainText.setForeground(Color.WHITE);
         panel.add(mainText);
         
-        
-        
+        lists = new JTextArea("text");
+        lists.setBounds(20, 200, 755, 300);
+        lists.setBackground(Color.WHITE);
+        lists.setEditable(false);
+        lists.setVisible(true);
+        panel.add(lists);
         
         
         frame.setVisible(true);
@@ -78,6 +89,7 @@ class MButton extends JButton {
         this.setForeground(Color.WHITE);
         this.setFont(new Font("berlin sans fb", Font.PLAIN, 30));
         this.setText(text);
+        this.setCursor(Cursor.getPredefinedCursor(12));
         
         //this.setBorder(BorderFactory.createMatteBorder(0, 0, 3, 0, Color.WHITE));
     }
