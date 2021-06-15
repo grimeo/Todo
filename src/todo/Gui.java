@@ -22,9 +22,6 @@ public class Gui{
     JLabel titleLabel, welcomeLabel,sentence1,sentence2,sentence3;
     JTextArea lists;
             
-    Gui(int n){
-        
-    }
     Gui(){
         
         frame = new JFrame("Task Master"); 
@@ -37,11 +34,8 @@ public class Gui{
         panel = new MPanel();
         
         dailyButton = new MButton(35, 70, "Daily");
-        dailyButton.addActionListener(new DailyButton());
         shortTermButton = new MButton(310, 70, "Short Term");
-        shortTermButton.addActionListener(new ShortTermButton());
         longTermButton = new MButton(600, 70, "Long Term");
-        longTermButton.addActionListener(new LongTermButton());
         
         
         titleLabel = new JLabel("Task to do");
@@ -93,42 +87,6 @@ public class Gui{
     }
     
 }
-
- class DailyButton implements ActionListener{
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        new Daily();
-    }
-    
-}
-
-class ShortTermButton implements ActionListener{
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        new ShortTerm();
-    }
-    
-}
-
-class LongTermButton implements ActionListener {
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        new LongTerm();
-    }
-    
-}
-
-
-
-
-
-
-
-
-
 
 
 class MPanel extends JPanel {
