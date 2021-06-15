@@ -4,14 +4,14 @@ public class TaskType {
     
 }
 
-class Daily {
+class Daily extends Gui{
     
 }
 
-class ShortTerm{
+class ShortTerm extends Gui{
     
 }
 
-class LongTerm {
+class LongTerm extends Gui{
     
 }

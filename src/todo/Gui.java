@@ -14,6 +14,7 @@ import javax.swing.JTextField;
 public class Gui{
     
     JFrame frame;
+    JPanel welcomePanel;
     MPanel panel;
     MButton longTerm, shortTerm, daily;
     JLabel mainText;
@@ -29,35 +30,44 @@ public class Gui{
         frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
         
         panel = new MPanel();
-        frame.add(panel);
         
         daily = new MButton(35, 70, "Daily");
-        daily.setBorder(BorderFactory.createMatteBorder(0, 0, 3, 0, Color.WHITE));
-        panel.add(daily);
         
         shortTerm = new MButton(310, 70, "Short Term");
-        panel.add(shortTerm);
         
         longTerm = new MButton(600, 70, "Long Term");
-        panel.add(longTerm);
         
         mainText = new JLabel("Task to do");
         mainText.setBounds(300, 0, 200, 65);
         mainText.setFont(new Font("berlin sans fb", Font.PLAIN, 40));
         mainText.setForeground(Color.WHITE);
-        panel.add(mainText);
         
-        lists = new JTextArea("text");
+        lists = new JTextArea("");
         lists.setBounds(20, 200, 755, 300);
         lists.setBackground(Color.WHITE);
         lists.setEditable(false);
         lists.setVisible(true);
+        
+        //welcome panel
+        welcomePanel = new JPanel();
+        welcomePanel.setBounds(0, 150, 800, 410);
+        welcomePanel.setBackground(Color.decode("#000000"));
+        welcomePanel.setLayout(null);
+        
+        
+        
         // panel.add(lists);
+        
+        frame.add(panel);
+        panel.add(daily);
+        panel.add(shortTerm);
+        panel.add(mainText);
+        panel.add(longTerm);
+        panel.add(welcomePanel);
         
         
         frame.setVisible(true);
     }
-    
     
 }
 
@@ -91,6 +101,6 @@ class MButton extends JButton {
         this.setText(text);
         this.setCursor(Cursor.getPredefinedCursor(12));
         
-        //this.setBorder(BorderFactory.createMatteBorder(0, 0, 3, 0, Color.WHITE));
+        this.setBorder(BorderFactory.createMatteBorder(3, 3, 3, 3, Color.WHITE));
     }
 }
