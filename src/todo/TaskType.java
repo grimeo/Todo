@@ -1,7 +1,7 @@
 package todo;
 
-public class TaskType {
-    
+public interface TaskType {
+    public void displayTasks();
 }
 
 class Daily extends Gui{

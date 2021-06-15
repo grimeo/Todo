@@ -17,7 +17,7 @@ public class Gui{
     JPanel welcomePanel;
     MPanel panel;
     MButton longTerm, shortTerm, daily;
-    JLabel mainText;
+    JLabel titleLabel, welcomeLabel,sentence1,sentence2,sentence3;
     JTextArea lists;
             
      Gui(){
@@ -32,15 +32,13 @@ public class Gui{
         panel = new MPanel();
         
         daily = new MButton(35, 70, "Daily");
-        
         shortTerm = new MButton(310, 70, "Short Term");
-        
         longTerm = new MButton(600, 70, "Long Term");
         
-        mainText = new JLabel("Task to do");
-        mainText.setBounds(300, 0, 200, 65);
-        mainText.setFont(new Font("berlin sans fb", Font.PLAIN, 40));
-        mainText.setForeground(Color.WHITE);
+        titleLabel = new JLabel("Task to do");
+        titleLabel.setBounds(300, 0, 200, 65);
+        titleLabel.setFont(new Font("berlin sans fb", Font.PLAIN, 40));
+        titleLabel.setForeground(Color.WHITE);
         
         lists = new JTextArea("");
         lists.setBounds(20, 200, 755, 300);
@@ -54,14 +52,30 @@ public class Gui{
         welcomePanel.setBackground(Color.decode("#000000"));
         welcomePanel.setLayout(null);
         
+        sentence1 = new JLabel("Them: \"All you need is motivation.\"");
+        sentence1.setBounds(190, 50, 550, 65);
+        sentence1.setFont(new Font("berlin sans fb", Font.PLAIN, 30));
+        sentence1.setForeground(Color.BLUE);
+        welcomePanel.add(sentence1);
         
+        sentence2 = new JLabel("Wrong!");
+        sentence2.setBounds(350, 120, 100, 65);
+        sentence2.setFont(new Font("berlin sans fb", Font.PLAIN, 30));
+        sentence2.setForeground(Color.RED);
+        welcomePanel.add(sentence2);
+        
+        sentence3 = new JLabel("You need fear and an approaching deadline.");
+        sentence3.setBounds(100, 190, 650, 65);
+        sentence3.setFont(new Font("berlin sans fb", Font.PLAIN, 33));
+        sentence3.setForeground(Color.GREEN);
+        welcomePanel.add(sentence3);
         
         // panel.add(lists);
         
         frame.add(panel);
         panel.add(daily);
         panel.add(shortTerm);
-        panel.add(mainText);
+        panel.add(titleLabel);
         panel.add(longTerm);
         panel.add(welcomePanel);
         
