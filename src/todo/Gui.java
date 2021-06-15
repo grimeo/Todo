@@ -3,6 +3,8 @@ package todo;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,11 +18,14 @@ public class Gui{
     JFrame frame;
     JPanel welcomePanel;
     MPanel panel;
-    MButton longTerm, shortTerm, daily;
+    MButton longTermButton, shortTermButton, dailyButton;
     JLabel titleLabel, welcomeLabel,sentence1,sentence2,sentence3;
     JTextArea lists;
             
-     Gui(){
+    Gui(int n){
+        
+    }
+    Gui(){
         
         frame = new JFrame("Task Master"); 
         frame.setLayout(null);
@@ -31,9 +36,13 @@ public class Gui{
         
         panel = new MPanel();
         
-        daily = new MButton(35, 70, "Daily");
-        shortTerm = new MButton(310, 70, "Short Term");
-        longTerm = new MButton(600, 70, "Long Term");
+        dailyButton = new MButton(35, 70, "Daily");
+        dailyButton.addActionListener(new DailyButton());
+        shortTermButton = new MButton(310, 70, "Short Term");
+        shortTermButton.addActionListener(new ShortTermButton());
+        longTermButton = new MButton(600, 70, "Long Term");
+        longTermButton.addActionListener(new LongTermButton());
+        
         
         titleLabel = new JLabel("Task to do");
         titleLabel.setBounds(300, 0, 200, 65);
@@ -73,10 +82,10 @@ public class Gui{
         // panel.add(lists);
         
         frame.add(panel);
-        panel.add(daily);
-        panel.add(shortTerm);
+        panel.add(dailyButton);
+        panel.add(shortTermButton);
+        panel.add(longTermButton);
         panel.add(titleLabel);
-        panel.add(longTerm);
         panel.add(welcomePanel);
         
         
@@ -84,6 +93,43 @@ public class Gui{
     }
     
 }
+
+ class DailyButton implements ActionListener{
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        new Daily();
+    }
+    
+}
+
+class ShortTermButton implements ActionListener{
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        new ShortTerm();
+    }
+    
+}
+
+class LongTermButton implements ActionListener {
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        new LongTerm();
+    }
+    
+}
+
+
+
+
+
+
+
+
+
+
 
 class MPanel extends JPanel {
     
