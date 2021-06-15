@@ -52,7 +52,7 @@ public class Gui{
         lists.setBackground(Color.WHITE);
         lists.setEditable(false);
         lists.setVisible(true);
-        panel.add(lists);
+        // panel.add(lists);
         
         
         frame.setVisible(true);
