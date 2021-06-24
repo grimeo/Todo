@@ -1,17 +1,14 @@
 package todo;
 
 import java.awt.Color;
-import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 
 public class Gui{
     
@@ -19,9 +16,11 @@ public class Gui{
     JPanel welcomePanel;
     MPanel panel;
     MButton longTermButton, shortTermButton, dailyButton;
-    JLabel titleLabel, welcomeLabel,sentence1,sentence2,sentence3;
-    JTextArea lists;
-            
+    JLabel titleLabel, welcomeLabel;
+    MLabel sentence1,sentence2,sentence3;
+    JTextArea textArea;
+    TaskType tasktype;
+    
     Gui(){
         
         frame = new JFrame("Task Master"); 
@@ -33,21 +32,20 @@ public class Gui{
         
         panel = new MPanel();
         
-        dailyButton = new MButton(35, 70, "Daily");
-        shortTermButton = new MButton(310, 70, "Short Term");
-        longTermButton = new MButton(600, 70, "Long Term");
-        
-        
         titleLabel = new JLabel("Task to do");
         titleLabel.setBounds(300, 0, 200, 65);
         titleLabel.setFont(new Font("berlin sans fb", Font.PLAIN, 40));
         titleLabel.setForeground(Color.WHITE);
         
-        lists = new JTextArea("");
-        lists.setBounds(20, 200, 755, 300);
-        lists.setBackground(Color.WHITE);
-        lists.setEditable(false);
-        lists.setVisible(true);
+        textArea = new JTextArea("nothing change");
+        textArea.setBounds(20, 200, 755, 250);
+        textArea.setLineWrap(true);
+        textArea.setForeground(Color.red);
+        textArea.setFont(new Font("berlin sans fb", Font.PLAIN, 30));
+        textArea.setBackground(Color.GRAY);
+        textArea.setColumns(3);
+        textArea.setEditable(false);
+        textArea.setVisible(true);
         
         //welcome panel
         welcomePanel = new JPanel();
@@ -55,70 +53,72 @@ public class Gui{
         welcomePanel.setBackground(Color.decode("#000000"));
         welcomePanel.setLayout(null);
         
-        sentence1 = new JLabel("Them: \"All you need is motivation.\"");
-        sentence1.setBounds(190, 50, 550, 65);
-        sentence1.setFont(new Font("berlin sans fb", Font.PLAIN, 30));
-        sentence1.setForeground(Color.BLUE);
+        sentence1 = new MLabel(190, 50, 550, 65, 30,"#0000FF", "Them: \"All you need is motivation.\"");
         welcomePanel.add(sentence1);
         
-        sentence2 = new JLabel("Wrong!");
-        sentence2.setBounds(350, 120, 100, 65);
-        sentence2.setFont(new Font("berlin sans fb", Font.PLAIN, 30));
-        sentence2.setForeground(Color.RED);
+        sentence2 = new MLabel(350, 120, 100, 65,30, "#FF0000", "Wrong!");
         welcomePanel.add(sentence2);
         
-        sentence3 = new JLabel("You need fear and an approaching deadline.");
-        sentence3.setBounds(100, 190, 650, 65);
-        sentence3.setFont(new Font("berlin sans fb", Font.PLAIN, 33));
-        sentence3.setForeground(Color.GREEN);
+        sentence3 = new MLabel(100, 190, 650, 65, 33, "#00FF00", "You need fear and an approaching deadline.");
         welcomePanel.add(sentence3);
         
-        // panel.add(lists);
+        dailyButton = new MButton(35, 70, "Daily");
+        dailyButton.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent ActionListener) {
+                
+                
+                
+                setTextArea();
+                
+                Tasks task = new Tasks();
+                String datas = task.getData();
+                System.out.println(datas + "gui");
+                textArea.setText(datas);
+                
+                
+                
+                dailyButton.setBorder(BorderFactory.createMatteBorder(0, 0, 4, 0, Color.WHITE));
+                shortTermButton.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.WHITE));
+                longTermButton.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.WHITE));
+            }
+        });
+        shortTermButton = new MButton(310, 70, "Short Term");
+        shortTermButton.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent ActionListener) {
+                setTextArea();
+                dailyButton.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.WHITE));
+                shortTermButton.setBorder(BorderFactory.createMatteBorder(0, 0, 4, 0, Color.WHITE));
+                longTermButton.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.WHITE));
+            }
+        });
+        longTermButton = new MButton(600, 70, "Long Term");
+        longTermButton.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent ActionListener) {
+                setTextArea();
+                
+                dailyButton.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.WHITE));
+                shortTermButton.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.WHITE));
+                longTermButton.setBorder(BorderFactory.createMatteBorder(0, 0, 4, 0, Color.WHITE));
+            }
+        });
         
-        frame.add(panel);
+        
         panel.add(dailyButton);
         panel.add(shortTermButton);
         panel.add(longTermButton);
         panel.add(titleLabel);
         panel.add(welcomePanel);
-        
+        frame.add(panel);
         
         frame.setVisible(true);
     }
     
-}
-
-
-class MPanel extends JPanel {
-    
-    public MPanel(){
-        this.setBounds(0, 0, 800, 560);
-        this.setBackground(Color.decode("#000000"));
-        this.setLayout(null);
-        
-    }
-    
-}
-
-class MTextField extends JTextField {
-    
-    public MTextField(int x, int y){
-         
-    }
-}
-
-class MButton extends JButton {
-    
-    public MButton(int x , int y, String text){
-        this.setFocusable(false);
-        this.setBounds(x, y, 150, 50);
-        this.setBackground(Color.BLACK);
-        this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        this.setForeground(Color.WHITE);
-        this.setFont(new Font("berlin sans fb", Font.PLAIN, 30));
-        this.setText(text);
-        this.setCursor(Cursor.getPredefinedCursor(12));
-        
-        this.setBorder(BorderFactory.createMatteBorder(3, 3, 3, 3, Color.WHITE));
-    }
+        public void setTextArea(){
+            panel.remove(welcomePanel);
+            panel.add(textArea);
+            panel.repaint();
+        }
 }
