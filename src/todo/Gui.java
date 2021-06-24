@@ -19,7 +19,6 @@ public class Gui{
     JLabel titleLabel, welcomeLabel;
     MLabel sentence1,sentence2,sentence3;
     JTextArea textArea;
-    TaskType tasktype;
     
     Gui(){
         
@@ -41,7 +40,7 @@ public class Gui{
         textArea.setBounds(20, 200, 755, 250);
         textArea.setLineWrap(true);
         textArea.setForeground(Color.red);
-        textArea.setFont(new Font("berlin sans fb", Font.PLAIN, 30));
+        textArea.setFont(new Font("Calibri", Font.PLAIN, 20));
         textArea.setBackground(Color.GRAY);
         textArea.setColumns(3);
         textArea.setEditable(false);
@@ -70,14 +69,6 @@ public class Gui{
                 
                 
                 setTextArea();
-                
-                Tasks task = new Tasks();
-                String datas = task.getData();
-                System.out.println(datas + "gui");
-                textArea.setText(datas);
-                
-                
-                
                 dailyButton.setBorder(BorderFactory.createMatteBorder(0, 0, 4, 0, Color.WHITE));
                 shortTermButton.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.WHITE));
                 longTermButton.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.WHITE));
