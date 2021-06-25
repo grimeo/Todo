@@ -18,7 +18,7 @@ public class Gui{
     JPanel welcomePanel;
     MPanel panel;
     MButton longTermButton, shortTermButton, dailyButton;
-    JLabel titleLabel, welcomeLabel;
+    JLabel titleLabel, welcomeLabel, headerCode, headerDescription, headerTime, headerDate;
     MLabel sentence1,sentence2,sentence3;
     JTextArea textArea;
     JScrollPane scroll;
@@ -42,18 +42,44 @@ public class Gui{
         titleLabel.setFont(new Font("berlin sans fb", Font.PLAIN, 40));
         titleLabel.setForeground(Color.WHITE);
         
-        textArea = new JTextArea("xx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx");
-        textArea.setBounds(20, 200, 755, 260);
+        
+        
+        headerCode = new JLabel("Code");
+        headerCode.setBounds(40, 170, 750, 20);
+        headerCode.setFont(new Font("Calibri", Font.BOLD, 22));
+        headerCode.setForeground(Color.WHITE);
+        
+        headerDescription = new JLabel("Description");
+        headerDescription.setBounds(250, 170, 750, 20);
+        headerDescription.setFont(new Font("Calibri", Font.BOLD, 22));
+        headerDescription.setForeground(Color.WHITE);
+        
+        headerTime = new JLabel("Time");
+        headerTime.setBounds(540, 170, 750, 20);
+        headerTime.setFont(new Font("Calibri", Font.BOLD, 22));
+        headerTime.setForeground(Color.WHITE);
+        
+        headerDate = new JLabel("Date");
+        headerDate.setBounds(680, 170, 750, 20);
+        headerDate.setFont(new Font("Calibri", Font.BOLD, 22));
+        headerDate.setForeground(Color.WHITE);
+        
+        //code  + tab + description + tab + time + tab + data 
+        
+        textArea = new JTextArea("123456789012\tMMW TASK 1 TASK 2 HAKDOG aa\t2200\t10/20/21"
+                + "\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx");
+        textArea.setBounds(28, 200, 750, 280);
         textArea.setLineWrap(true);
-        textArea.setForeground(Color.red);
+        textArea.setForeground(Color.WHITE);
         textArea.setFont(new Font("Calibri", Font.PLAIN, 20));
-        textArea.setBackground(Color.GRAY);
+        textArea.setBackground(Color.BLACK);
         textArea.setColumns(3);
         textArea.setEditable(false);
         textArea.setVisible(true);
         
         scroll = new JScrollPane (textArea);
-        scroll.setBounds(20, 200, 755, 260);
+        scroll.setBounds(28, 200, 740, 280);
+        scroll.setBackground(Color.BLACK);
         scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         
         //welcome panel
@@ -80,9 +106,13 @@ public class Gui{
                 
                 
                 setTextArea();
-                dailyButton.setBorder(BorderFactory.createMatteBorder(0, 0, 4, 0, Color.WHITE));
+                dailyButton.setBorder(BorderFactory.createMatteBorder(0, 0, 4, 0, Color.decode("#80ff80")));
                 shortTermButton.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.WHITE));
                 longTermButton.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.WHITE));
+                
+                dailyButton.setForeground(Color.decode("#80ff80"));
+                shortTermButton.setForeground(Color.WHITE);
+                longTermButton.setForeground(Color.WHITE);
             }
         });
         shortTermButton = new MButton(310, 70, "Short Term");
@@ -94,8 +124,12 @@ public class Gui{
                 
                 setTextArea();
                 dailyButton.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.WHITE));
-                shortTermButton.setBorder(BorderFactory.createMatteBorder(0, 0, 4, 0, Color.WHITE));
+                shortTermButton.setBorder(BorderFactory.createMatteBorder(0, 0, 4, 0, Color.decode("#80ff80")));
                 longTermButton.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.WHITE));
+                
+                dailyButton.setForeground(Color.WHITE);
+                shortTermButton.setForeground(Color.decode("#80ff80"));
+                longTermButton.setForeground(Color.WHITE);
             }
         });
         longTermButton = new MButton(600, 70, "Long Term");
@@ -109,7 +143,11 @@ public class Gui{
                 
                 dailyButton.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.WHITE));
                 shortTermButton.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.WHITE));
-                longTermButton.setBorder(BorderFactory.createMatteBorder(0, 0, 4, 0, Color.WHITE));
+                longTermButton.setBorder(BorderFactory.createMatteBorder(0, 0, 4, 0, Color.decode("#80ff80")));
+                
+                dailyButton.setForeground(Color.WHITE);
+                shortTermButton.setForeground(Color.WHITE);
+                longTermButton.setForeground(Color.decode("#80ff80"));
             }
         });
         
@@ -127,6 +165,10 @@ public class Gui{
         public void setTextArea(){
             panel.remove(welcomePanel);
             panel.add(scroll);
+            panel.add(headerCode);
+            panel.add(headerDescription);
+            panel.add(headerTime);
+            panel.add(headerDate);
             panel.repaint();
         }
 }
