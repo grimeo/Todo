@@ -1,5 +1,6 @@
 package todo;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -8,6 +9,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 public class Gui{
@@ -19,6 +21,10 @@ public class Gui{
     JLabel titleLabel, welcomeLabel;
     MLabel sentence1,sentence2,sentence3;
     JTextArea textArea;
+    JScrollPane scroll;
+    
+    Data data = new Data();
+    
     
     Gui(){
         
@@ -36,8 +42,8 @@ public class Gui{
         titleLabel.setFont(new Font("berlin sans fb", Font.PLAIN, 40));
         titleLabel.setForeground(Color.WHITE);
         
-        textArea = new JTextArea("nothing change");
-        textArea.setBounds(20, 200, 755, 250);
+        textArea = new JTextArea("xx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx");
+        textArea.setBounds(20, 200, 755, 260);
         textArea.setLineWrap(true);
         textArea.setForeground(Color.red);
         textArea.setFont(new Font("Calibri", Font.PLAIN, 20));
@@ -45,6 +51,10 @@ public class Gui{
         textArea.setColumns(3);
         textArea.setEditable(false);
         textArea.setVisible(true);
+        
+        scroll = new JScrollPane (textArea);
+        scroll.setBounds(20, 200, 755, 260);
+        scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         
         //welcome panel
         welcomePanel = new JPanel();
@@ -66,6 +76,7 @@ public class Gui{
 
             public void actionPerformed(ActionEvent ActionListener) {
                 
+                data.setTab(1);
                 
                 
                 setTextArea();
@@ -78,6 +89,9 @@ public class Gui{
         shortTermButton.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent ActionListener) {
+                
+                data.setTab(2);
+                
                 setTextArea();
                 dailyButton.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.WHITE));
                 shortTermButton.setBorder(BorderFactory.createMatteBorder(0, 0, 4, 0, Color.WHITE));
@@ -88,6 +102,9 @@ public class Gui{
         longTermButton.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent ActionListener) {
+                
+                data.setTab(3);
+                
                 setTextArea();
                 
                 dailyButton.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.WHITE));
@@ -109,7 +126,7 @@ public class Gui{
     
         public void setTextArea(){
             panel.remove(welcomePanel);
-            panel.add(textArea);
+            panel.add(scroll);
             panel.repaint();
         }
 }
