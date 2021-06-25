@@ -1,6 +1,5 @@
 package todo;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -17,7 +16,8 @@ public class Gui{
     JFrame frame;
     JPanel welcomePanel;
     MPanel panel;
-    MButton longTermButton, shortTermButton, dailyButton;
+    MButton longTermButton, shortTermButton, dailyButton,
+            AddTask, RemoveTask, EditTask, AddToDone, Accomplished;
     JLabel titleLabel, welcomeLabel, headerCode, headerDescription, headerTime, headerDate;
     MLabel sentence1,sentence2,sentence3;
     JTextArea textArea;
@@ -41,7 +41,6 @@ public class Gui{
         titleLabel.setBounds(300, 0, 200, 65);
         titleLabel.setFont(new Font("berlin sans fb", Font.PLAIN, 40));
         titleLabel.setForeground(Color.WHITE);
-        
         
         
         headerCode = new JLabel("Code");
@@ -152,6 +151,18 @@ public class Gui{
         });
         
         
+        AddTask = new MButton(35, 490, 130, 30, "Add Task") ;
+        
+        RemoveTask = new MButton(185, 490, 130, 30, "Remove Task");
+        
+        EditTask = new MButton(335, 490, 130, 30, "Edit Task");
+        
+        AddToDone = new MButton(485, 490, 130, 30, "Add To Done");
+        
+        Accomplished = new MButton(635, 490, 130, 30, "Done");
+        
+        
+        
         panel.add(dailyButton);
         panel.add(shortTermButton);
         panel.add(longTermButton);
@@ -163,6 +174,13 @@ public class Gui{
     }
     
         public void setTextArea(){
+            
+            panel.add(AddTask);
+            panel.add(RemoveTask);
+            panel.add(EditTask);
+            panel.add(AddToDone);
+            panel.add(Accomplished);
+            
             panel.remove(welcomePanel);
             panel.add(scroll);
             panel.add(headerCode);
@@ -171,4 +189,25 @@ public class Gui{
             panel.add(headerDate);
             panel.repaint();
         }
+}
+
+class AddTaskFrame {
+    
+    AddTaskFrame(){
+        
+    }
+    
+}
+class RemoveTaskFrame {
+    
+    RemoveTaskFrame(){
+        
+    }
+}
+
+class EditTaskFrame {
+    
+    EditTaskFrame(){
+        
+    }
 }

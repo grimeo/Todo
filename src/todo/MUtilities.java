@@ -55,4 +55,15 @@ class MButton extends JButton {
         this.setBorder(BorderFactory.createMatteBorder(3, 3, 3, 3, Color.WHITE));
         //this.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.WHITE), "WHITE"));
     }
+    
+    public MButton(int x, int y, int w, int h, String name){
+        this.setBounds(x, y, w, h);
+        this.setForeground(Color.WHITE);
+        this.setFont(new Font("berlin sans fb", Font.PLAIN, 20));
+        this.setText(name);
+        this.setFocusable(false);
+        this.setBackground(Color.BLACK);
+        this.setCursor(Cursor.getPredefinedCursor(12));
+        this.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2, true));
+    }
 }

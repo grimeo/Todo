@@ -7,12 +7,15 @@ public class Data {
     private final String DailyCSV = "DailyTaskList.csv";
     private final String STTask = "ShortTermTaskList.csv";
     private final String LTTask = "LongTermTaskList.csv";
+    private final String LogPath = "Logs.csv";
     
     private static String filePath;
     
     protected static List<String[]> CSVData;
-    private static String[] task = {"","",""};
+    private static String ID;
+    private static String[] task = {"","","",""};
     private static int tab; //if 1 this is daily tab, if 2 this is short term tab, if 3 this is long term tab
+    
     
     Data(){
         
@@ -40,8 +43,16 @@ public class Data {
         tab = tabType;
     }
     
+    public void setID(String id){
+        ID = id;
+    }
     
     //getters
+    
+    public String getLogPath(){
+        return LogPath;
+    }
+    
     public String getFilePath(){
         return filePath;
     }
@@ -64,5 +75,9 @@ public class Data {
     
     public int getTab(){
         return tab;
+    }
+    
+    public String getID(){
+        return ID;
     }
 }
