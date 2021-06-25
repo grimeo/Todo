@@ -4,12 +4,14 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 public class Gui{
     
@@ -104,7 +106,11 @@ public class Gui{
                 data.setTab(1);
                 
                 
-                setTextArea();
+                showTask();
+                panel.remove(AddToDone);
+                panel.remove(Accomplished);
+                frame.repaint();
+                
                 dailyButton.setBorder(BorderFactory.createMatteBorder(0, 0, 4, 0, Color.decode("#80ff80")));
                 shortTermButton.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.WHITE));
                 longTermButton.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.WHITE));
@@ -121,7 +127,7 @@ public class Gui{
                 
                 data.setTab(2);
                 
-                setTextArea();
+                showTask();
                 dailyButton.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.WHITE));
                 shortTermButton.setBorder(BorderFactory.createMatteBorder(0, 0, 4, 0, Color.decode("#80ff80")));
                 longTermButton.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.WHITE));
@@ -138,7 +144,7 @@ public class Gui{
                 
                 data.setTab(3);
                 
-                setTextArea();
+                showTask();
                 
                 dailyButton.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.WHITE));
                 shortTermButton.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.WHITE));
@@ -152,15 +158,45 @@ public class Gui{
         
         
         AddTask = new MButton(35, 490, 130, 30, "Add Task") ;
+        AddTask.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+                new AddTaskFrame();
+            }
+        });
         
         RemoveTask = new MButton(185, 490, 130, 30, "Remove Task");
+        RemoveTask.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+                new RemoveTaskFrame();
+            }
+        });
+        
         
         EditTask = new MButton(335, 490, 130, 30, "Edit Task");
+        EditTask.addActionListener(new ActionListener() {
+            
+            public void actionPerformed(ActionEvent e) {
+                new EditTaskFrame();
+            }
+        });
         
         AddToDone = new MButton(485, 490, 130, 30, "Add To Done");
+        AddToDone.addActionListener(new ActionListener() {
+            
+            public void actionPerformed(ActionEvent e){
+                new AddToDoneFrame();
+            }
+        });
         
         Accomplished = new MButton(635, 490, 130, 30, "Done");
-        
+        Accomplished.addActionListener(new ActionListener() {
+            
+            public void actionPerformed(ActionEvent e){
+                new AccomplishedFrame();
+            }
+        });
         
         
         panel.add(dailyButton);
@@ -173,7 +209,7 @@ public class Gui{
         frame.setVisible(true);
     }
     
-        public void setTextArea(){
+        public void showTask(){
             
             panel.add(AddTask);
             panel.add(RemoveTask);
@@ -193,21 +229,110 @@ public class Gui{
 
 class AddTaskFrame {
     
+    JFrame AddTaskFrame;
+    MPanel AddTaskPanel;
+    JLabel CodeLabel, DescriptionLabel, DateLabel, TimeLabel;
+    JTextField Code, Description, Date, Time;
+    MButton add, cancel;
+    
+    
     AddTaskFrame(){
+        AddTaskFrame = new JFrame();
+        AddTaskFrame.dispatchEvent(new WindowEvent(AddTaskFrame, WindowEvent.WINDOW_CLOSING));
+        AddTaskFrame.setLayout(null);
+        AddTaskFrame.getContentPane().setBackground(Color.BLACK);
+        AddTaskFrame.setSize(500, 500);
+        AddTaskFrame.setLocationRelativeTo(null);
+        AddTaskFrame.setResizable(false);
         
+        AddTaskPanel = new MPanel(50, 25, 400, 400, "Add Task");
+        
+        
+        AddTaskFrame.add(AddTaskPanel);
+        AddTaskFrame.setVisible(true);
     }
     
 }
 class RemoveTaskFrame {
     
+    JFrame RemoveFrame;
+    MPanel RemoveTaskPanel;
+    JLabel CodeLabel, DescriptionLabel, DateLabel, TimeLabel;
+    JTextField Code, Description, Date, Time;
+    MButton add, cancel;
+    
+    
     RemoveTaskFrame(){
+        RemoveFrame = new JFrame();
+        RemoveFrame.dispatchEvent(new WindowEvent(RemoveFrame, WindowEvent.WINDOW_CLOSING));
+        RemoveFrame.setLayout(null);
+        RemoveFrame.getContentPane().setBackground(Color.BLACK);
+        RemoveFrame.setSize(500, 500);
+        RemoveFrame.setLocationRelativeTo(null);
+        RemoveFrame.setResizable(false);
         
+        RemoveTaskPanel = new MPanel(50, 25, 400, 400, "Remove Task");
+        
+        
+        RemoveFrame.add(RemoveTaskPanel);
+        RemoveFrame.setVisible(true);
     }
 }
 
 class EditTaskFrame {
     
+    JFrame EditTaskFrame;
+    MPanel EditTaskPanel;
+    JLabel CodeLabel, DescriptionLabel, DateLabel, TimeLabel;
+    JTextField Code, Description, Date, Time;
+    MButton add, cancel;
+    
+    
     EditTaskFrame(){
+        EditTaskFrame = new JFrame();
+        EditTaskFrame.dispatchEvent(new WindowEvent(EditTaskFrame, WindowEvent.WINDOW_CLOSING));
+        EditTaskFrame.setLayout(null);
+        EditTaskFrame.getContentPane().setBackground(Color.BLACK);
+        EditTaskFrame.setSize(500, 500);
+        EditTaskFrame.setLocationRelativeTo(null);
+        EditTaskFrame.setResizable(false);
+        
+        EditTaskPanel = new MPanel(50, 25, 400, 400, "Edit Task");
+        
+        
+        EditTaskFrame.add(EditTaskPanel);
+        EditTaskFrame.setVisible(true);
         
     }
+}
+
+class AddToDoneFrame {
+    
+    JFrame AddToDoneFrame;
+    MPanel AddToDonePanel;
+    JLabel CodeLabel, DescriptionLabel, DateLabel, TimeLabel;
+    JTextField Code, Description, Date, Time;
+    MButton add, cancel;
+    
+    
+    AddToDoneFrame(){
+        AddToDoneFrame = new JFrame();
+        AddToDoneFrame.dispatchEvent(new WindowEvent(AddToDoneFrame, WindowEvent.WINDOW_CLOSING));
+        AddToDoneFrame.setLayout(null);
+        AddToDoneFrame.getContentPane().setBackground(Color.BLACK);
+        AddToDoneFrame.setSize(500, 500);
+        AddToDoneFrame.setLocationRelativeTo(null);
+        AddToDoneFrame.setResizable(false);
+        
+        AddToDonePanel = new MPanel(50, 25, 400, 400, "Add To Done");
+        
+        
+        AddToDoneFrame.add(AddToDonePanel);
+        AddToDoneFrame.setVisible(true);
+        
+    }
+}
+
+class AccomplishedFrame {
+    
 }

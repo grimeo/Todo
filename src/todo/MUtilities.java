@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.TitledBorder;
 
 public class MUtilities {
     
@@ -18,7 +19,13 @@ class MPanel extends JPanel {
         this.setBounds(0, 0, 800, 560);
         this.setBackground(Color.decode("#000000"));
         this.setLayout(null);
-        
+    }
+    
+    MPanel(int x, int y, int w, int h, String titleName){
+        this.setBounds(x, y, w, h);
+        this.setBackground(Color.BLACK);
+        this.setLayout(null);
+        this.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.WHITE, 2), titleName, 1, TitledBorder.DEFAULT_POSITION, new Font("berlin sans fb", Font.PLAIN, 20), Color.WHITE));
     }
     
 }
@@ -65,5 +72,16 @@ class MButton extends JButton {
         this.setBackground(Color.BLACK);
         this.setCursor(Cursor.getPredefinedCursor(12));
         this.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2, true));
+    }
+    
+    public MButton(int x, int y, int w, int h, String name, int FontSize){
+        this.setBounds(x, y, w, h);
+        this.setForeground(Color.WHITE);
+        this.setFont(new Font("berlin sans fb", Font.PLAIN, FontSize));
+        this.setText(name);
+        this.setFocusable(false);
+        this.setBackground(Color.BLACK);
+        this.setCursor(Cursor.getPredefinedCursor(12));
+        this.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1, true));
     }
 }
