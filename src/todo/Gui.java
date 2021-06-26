@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.border.TitledBorder;
 
 public class Gui{
     
@@ -91,13 +92,13 @@ public class Gui{
         welcomePanel.setBackground(Color.decode("#000000"));
         welcomePanel.setLayout(null);
         
-        sentence1 = new MLabel(190, 50, 550, 65, 30,"#0000FF", "Them: \"All you need is motivation.\"");
+        sentence1 = new MLabel(190, 50, 550, 65, 30,Color.decode("#0000FF"), "Them: \"All you need is motivation.\"");
         welcomePanel.add(sentence1);
         
-        sentence2 = new MLabel(350, 120, 100, 65,30, "#FF0000", "Wrong!");
+        sentence2 = new MLabel(350, 120, 100, 65,30,Color.decode("#FF0000") , "Wrong!");
         welcomePanel.add(sentence2);
         
-        sentence3 = new MLabel(100, 190, 650, 65, 33, "#00FF00", "You need fear and an approaching deadline.");
+        sentence3 = new MLabel(100, 190, 650, 65, 33, Color.decode("#00FF00"), "You need fear and an approaching deadline.");
         welcomePanel.add(sentence3);
         
         dailyButton = new MButton(35, 70, "Daily");
@@ -331,9 +332,10 @@ class AddTaskFrame {
     
     JFrame AddTaskFrame;
     MPanel AddTaskPanel;
-    JLabel CodeLabel, DescriptionLabel, DateLabel, TimeLabel;
-    JTextField Code, Description, Date, Time;
-    MButton add, cancel;
+    MLabel CodeLabel, DescriptionLabel, DateLabel, TimeLabel, TimeFormatLabel, DateFormatLabel;
+    MTextField Code, Date, Time;
+    JTextArea Description;
+    MButton AddButton, CancelButton;
     
     
     AddTaskFrame(){
@@ -345,10 +347,51 @@ class AddTaskFrame {
         AddTaskFrame.setLocationRelativeTo(null);
         AddTaskFrame.setResizable(false);
         
-        AddTaskPanel = new MPanel(50, 25, 400, 400, "Add Task");
+        AddTaskPanel = new MPanel(50, 35, 400, 400, "Add Task");
         
+        DateFormatLabel = new MLabel(190, 115, 100, 20, 15, Color.decode("#80ff80"), "DD/MM/YY");
+        TimeFormatLabel = new MLabel(190, 165, 100, 20, 15, Color.decode("#80ff80"), "HHMM");
+        
+        CodeLabel = new MLabel(120, 40, 70, 25, 20, Color.WHITE, "Code  :");
+        DateLabel = new MLabel(120, 90, 70, 25, 20, Color.WHITE, "Date  :");
+        TimeLabel = new MLabel(120, 140, 70, 25, 20, Color.WHITE, "Time  :");
+        
+        Code = new MTextField(190, 40, 120, 25, 20);
+        Date = new MTextField(190, 90, 120, 25, 20);
+        Time = new MTextField(190, 140, 120, 25, 20);
+        
+        Description = new JTextArea("");
+        Description.setBounds(30, 200, 340, 100);
+        Description.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.WHITE), 
+                "Description", 1 ,TitledBorder.DEFAULT_JUSTIFICATION ,new Font("Berlin sans fb", Font.PLAIN, 20) , Color.WHITE));
+        Description.setLineWrap(true);
+        Description.setForeground(Color.WHITE);
+        Description.setFont(new Font("berlin sans fb", Font.PLAIN, 19));
+        Description.setCaretColor(Color.decode("#80ff80"));
+        Description.setBackground(Color.BLACK);
+        Description.setEditable(true);
+        Description.setVisible(true);
+        
+        AddButton = new MButton(50, 340, 100, 30, "Add");
+        CancelButton = new MButton(250, 340, 100, 30, "Cancel");
+        
+        
+        AddTaskPanel.add(CodeLabel);
+        AddTaskPanel.add(TimeLabel);
+        AddTaskPanel.add(DateLabel);
+        AddTaskPanel.add(TimeFormatLabel);
+        AddTaskPanel.add(DateFormatLabel);
+        
+        AddTaskPanel.add(Code);
+        AddTaskPanel.add(Description);
+        AddTaskPanel.add(Time);
+        AddTaskPanel.add(Date);
+        
+        AddTaskPanel.add(AddButton);
+        AddTaskPanel.add(CancelButton);
         
         AddTaskFrame.add(AddTaskPanel);
+        
         AddTaskFrame.setVisible(true);
     }
     

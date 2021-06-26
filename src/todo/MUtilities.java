@@ -25,25 +25,30 @@ class MPanel extends JPanel {
         this.setBounds(x, y, w, h);
         this.setBackground(Color.BLACK);
         this.setLayout(null);
-        this.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.WHITE, 2), titleName, 1, TitledBorder.DEFAULT_POSITION, new Font("berlin sans fb", Font.PLAIN, 20), Color.WHITE));
+        this.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.WHITE, 2)
+                , titleName, 1, TitledBorder.DEFAULT_POSITION, new Font("berlin sans fb", Font.PLAIN, 22), Color.WHITE));
     }
     
 }
 
 class MLabel extends JLabel {
-    public MLabel(int x, int y, int w, int h, int size, String color, String text){
+    public MLabel(int x, int y, int w, int h, int size, Color color, String text){
         this.setBounds(x, y, w, h);
         this.setFont(new Font("berlin sans fb", Font.PLAIN, size));
         this.setText(text);
-        this.setForeground(Color.decode(color));
+        this.setForeground(color);
     }
 }
 
 
 class MTextField extends JTextField {
     
-    public MTextField(int x, int y){
-         
+    public MTextField(int x, int y, int w, int h, int size){
+         this.setBounds(x, y, w, h);
+         this.setBackground(Color.BLACK);
+         this.setForeground(Color.WHITE);
+         this.setFont(new Font("berlin sans fb", Font.PLAIN, size));
+         this.setCaretColor(Color.GREEN);
     }
 }
 
@@ -58,7 +63,6 @@ class MButton extends JButton {
         this.setFont(new Font("berlin sans fb", Font.PLAIN, 30));
         this.setText(text);
         this.setCursor(Cursor.getPredefinedCursor(12));
-        
         this.setBorder(BorderFactory.createMatteBorder(3, 3, 3, 3, Color.WHITE));
         //this.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.WHITE), "WHITE"));
     }
