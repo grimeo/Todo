@@ -406,7 +406,6 @@ class RemoveTaskFrame {
     JTextArea Code;
     MButton RemoveButton, CancelButton;
     
-    
     RemoveTaskFrame(){
         
         RemoveFrame = new JFrame("Remove Task");
@@ -423,7 +422,6 @@ class RemoveTaskFrame {
         
         CodeLabel = new MLabel(50, 80, 70, 25, 20, Color.WHITE, "Code  :");
         
-        
         Code = new JTextArea();
         Code.setBounds(120, 80, 230, 100);
         Code.setBorder(BorderFactory.createLineBorder(Color.WHITE));
@@ -434,8 +432,6 @@ class RemoveTaskFrame {
         Code.setBackground(Color.BLACK);
         Code.setEditable(true);
         Code.setVisible(true);
-        
-        
         
         RemoveButton = new MButton(50, 340, 100, 30, "Remove");
         CancelButton = new MButton(250, 340, 100, 30, "Cancel");
@@ -464,7 +460,7 @@ class EditTaskFrame {
     
     
     EditTaskFrame(){
-        EditTaskFrame = new JFrame("Add Task");
+        EditTaskFrame = new JFrame("Edit Task");
         EditTaskFrame.dispatchEvent(new WindowEvent(EditTaskFrame, WindowEvent.WINDOW_CLOSING));
         EditTaskFrame.setLayout(null);
         EditTaskFrame.getContentPane().setBackground(Color.BLACK);
@@ -472,18 +468,18 @@ class EditTaskFrame {
         EditTaskFrame.setLocationRelativeTo(null);
         EditTaskFrame.setResizable(false);
         
-        EditTaskPanel = new MPanel(50, 35, 400, 400, "Add Task");
+        EditTaskPanel = new MPanel(50, 35, 400, 400, "Edit Task");
         
-        DateFormatLabel = new MLabel(190, 115, 100, 20, 15, Color.decode("#80ff80"), "DD/MM/YY");
-        TimeFormatLabel = new MLabel(190, 165, 100, 20, 15, Color.decode("#80ff80"), "HHMM");
+        DateFormatLabel = new MLabel(120, 115, 100, 20, 15, Color.decode("#80ff80"), "DD/MM/YY");
+        TimeFormatLabel = new MLabel(120, 165, 100, 20, 15, Color.decode("#80ff80"), "HHMM");
         
-        CodeLabel = new MLabel(120, 40, 70, 25, 20, Color.WHITE, "Code  :");
-        DateLabel = new MLabel(120, 90, 70, 25, 20, Color.WHITE, "Date  :");
-        TimeLabel = new MLabel(120, 140, 70, 25, 20, Color.WHITE, "Time  :");
+        CodeLabel = new MLabel(50, 40, 70, 25, 20, Color.WHITE, "Code  :");
+        DateLabel = new MLabel(50, 90, 70, 25, 20, Color.WHITE, "Date  :");
+        TimeLabel = new MLabel(50, 140, 70, 25, 20, Color.WHITE, "Time  :");
         
-        Code = new MTextField(190, 40, 120, 25, 20);
-        Date = new MTextField(190, 90, 120, 25, 20);
-        Time = new MTextField(190, 140, 120, 25, 20);
+        Code = new MTextField(120, 40, 120, 25, 20);
+        Date = new MTextField(120, 90, 120, 25, 20);
+        Time = new MTextField(120, 140, 120, 25, 20);
         
         Description = new JTextArea("");
         Description.setBounds(30, 200, 340, 100);
@@ -497,11 +493,11 @@ class EditTaskFrame {
         Description.setEditable(true);
         Description.setVisible(true);
         
-        Search = new MButton(50, 340, 100, 30, "Search");
+        Search = new MButton(260, 40, 100, 25, "Search");
+        
         AddButton = new MButton(50, 340, 100, 30, "Edit");
         CancelButton = new MButton(250, 340, 100, 30, "Cancel");
         CancelButton.addActionListener(e->EditTaskFrame.dispatchEvent(new WindowEvent(EditTaskFrame, WindowEvent.WINDOW_CLOSING)));
-        
         
         EditTaskPanel.add(CodeLabel);
         EditTaskPanel.add(TimeLabel);
@@ -514,6 +510,7 @@ class EditTaskFrame {
         EditTaskPanel.add(Time);
         EditTaskPanel.add(Date);
         
+        EditTaskPanel.add(Search);
         EditTaskPanel.add(AddButton);
         EditTaskPanel.add(CancelButton);
         
