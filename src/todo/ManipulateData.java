@@ -32,3 +32,47 @@ class RemoveTask extends Data implements ManipulateData {
     
 }
 
+class EditTask extends Data implements ManipulateData {
+
+    @Override
+    public void ManipData() {
+        
+    }
+    
+}
+
+class AddtoDoneTask extends Data implements ManipulateData {
+
+    @Override
+    public void ManipData() {
+        
+    }
+    
+}
+
+class SearchInput extends Data implements ManipulateData {
+
+    @Override
+    public void ManipData() {
+        
+    }
+    
+}
+
+class ParseInputToInt extends Data implements ManipulateData {
+
+    @Override
+    public void ManipData() {
+        
+    }
+    
+}
+
+class InputLengthChecker extends Data implements ManipulateData {
+
+    @Override
+    public void ManipData() {
+        
+    }
+    
+}

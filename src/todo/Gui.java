@@ -1,5 +1,6 @@
 package todo;
 
+import java.awt.AWTEvent;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -48,7 +49,7 @@ public class Gui{
         titleLabel.setForeground(Color.WHITE);
         
         
-        headerCode = new JLabel("Code");
+        headerCode = new JLabel("Task ID");
         headerCode.setBounds(40, 170, 750, 20);
         headerCode.setFont(new Font("Calibri", Font.BOLD, 22));
         headerCode.setForeground(Color.WHITE);
@@ -70,12 +71,12 @@ public class Gui{
         
         //code  + tab + description + tab + time + tab + data 
         
-        textArea = new JTextArea("123456789012\tMMW TASK 1 TASK 2 HAKDOG aa\t2200\t10/20/21"
+        textArea = new JTextArea("123456789012\tMy miming na antok asdwads aa\t2200\t10/20/21"
                 + "\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx");
         textArea.setBounds(28, 200, 750, 280);
         textArea.setLineWrap(true);
         textArea.setForeground(Color.WHITE);
-        textArea.setFont(new Font("Calibri", Font.PLAIN, 20));
+        textArea.setFont(new Font("berlin sans fb", Font.PLAIN, 20));
         textArea.setBackground(Color.BLACK);
         textArea.setColumns(3);
         textArea.setEditable(false);
@@ -339,7 +340,7 @@ class AddTaskFrame {
     
     
     AddTaskFrame(){
-        AddTaskFrame = new JFrame();
+        AddTaskFrame = new JFrame("Add Task");
         AddTaskFrame.dispatchEvent(new WindowEvent(AddTaskFrame, WindowEvent.WINDOW_CLOSING));
         AddTaskFrame.setLayout(null);
         AddTaskFrame.getContentPane().setBackground(Color.BLACK);
@@ -374,6 +375,7 @@ class AddTaskFrame {
         
         AddButton = new MButton(50, 340, 100, 30, "Add");
         CancelButton = new MButton(250, 340, 100, 30, "Cancel");
+        CancelButton.addActionListener(e->AddTaskFrame.dispatchEvent(new WindowEvent(AddTaskFrame, WindowEvent.WINDOW_CLOSING)));
         
         
         AddTaskPanel.add(CodeLabel);
@@ -400,13 +402,14 @@ class RemoveTaskFrame {
     
     JFrame RemoveFrame;
     MPanel RemoveTaskPanel;
-    JLabel CodeLabel, DescriptionLabel, DateLabel, TimeLabel;
-    JTextField Code, Description, Date, Time;
-    MButton add, cancel;
+    MLabel CodeLabel, NotifyLabel, Description, Date, Time;
+    JTextArea Code;
+    MButton RemoveButton, CancelButton;
     
     
     RemoveTaskFrame(){
-        RemoveFrame = new JFrame();
+        
+        RemoveFrame = new JFrame("Remove Task");
         RemoveFrame.dispatchEvent(new WindowEvent(RemoveFrame, WindowEvent.WINDOW_CLOSING));
         RemoveFrame.setLayout(null);
         RemoveFrame.getContentPane().setBackground(Color.BLACK);
@@ -416,8 +419,36 @@ class RemoveTaskFrame {
         
         RemoveTaskPanel = new MPanel(50, 25, 400, 400, "Remove Task");
         
+        NotifyLabel = new MLabel(120, 190, 300, 25, 18, Color.decode("#80FF80"), "Use \" , \" to seperate Task ID");
+        
+        CodeLabel = new MLabel(50, 80, 70, 25, 20, Color.WHITE, "Code  :");
+        
+        
+        Code = new JTextArea();
+        Code.setBounds(120, 80, 230, 100);
+        Code.setBorder(BorderFactory.createLineBorder(Color.WHITE));
+        Code.setLineWrap(true);
+        Code.setForeground(Color.WHITE);
+        Code.setFont(new Font("berlin sans fb", Font.PLAIN, 19));
+        Code.setCaretColor(Color.decode("#80ff80"));
+        Code.setBackground(Color.BLACK);
+        Code.setEditable(true);
+        Code.setVisible(true);
+        
+        
+        
+        RemoveButton = new MButton(50, 340, 100, 30, "Remove");
+        CancelButton = new MButton(250, 340, 100, 30, "Cancel");
+        CancelButton.addActionListener(e->RemoveFrame.dispatchEvent(new WindowEvent(RemoveFrame, WindowEvent.WINDOW_CLOSING)));
+        
+        RemoveTaskPanel.add(NotifyLabel);
+        RemoveTaskPanel.add(CodeLabel);
+        RemoveTaskPanel.add(Code);
+        RemoveTaskPanel.add(RemoveButton);
+        RemoveTaskPanel.add(CancelButton);
         
         RemoveFrame.add(RemoveTaskPanel);
+        
         RemoveFrame.setVisible(true);
     }
 }
@@ -426,13 +457,14 @@ class EditTaskFrame {
     
     JFrame EditTaskFrame;
     MPanel EditTaskPanel;
-    JLabel CodeLabel, DescriptionLabel, DateLabel, TimeLabel;
-    JTextField Code, Description, Date, Time;
-    MButton add, cancel;
+    MLabel CodeLabel, DescriptionLabel, DateLabel, TimeLabel, TimeFormatLabel, DateFormatLabel;
+    MTextField Code, Date, Time;
+    JTextArea Description;
+    MButton AddButton, CancelButton, Search;
     
     
     EditTaskFrame(){
-        EditTaskFrame = new JFrame();
+        EditTaskFrame = new JFrame("Add Task");
         EditTaskFrame.dispatchEvent(new WindowEvent(EditTaskFrame, WindowEvent.WINDOW_CLOSING));
         EditTaskFrame.setLayout(null);
         EditTaskFrame.getContentPane().setBackground(Color.BLACK);
@@ -440,10 +472,53 @@ class EditTaskFrame {
         EditTaskFrame.setLocationRelativeTo(null);
         EditTaskFrame.setResizable(false);
         
-        EditTaskPanel = new MPanel(50, 25, 400, 400, "Edit Task");
+        EditTaskPanel = new MPanel(50, 35, 400, 400, "Add Task");
         
+        DateFormatLabel = new MLabel(190, 115, 100, 20, 15, Color.decode("#80ff80"), "DD/MM/YY");
+        TimeFormatLabel = new MLabel(190, 165, 100, 20, 15, Color.decode("#80ff80"), "HHMM");
+        
+        CodeLabel = new MLabel(120, 40, 70, 25, 20, Color.WHITE, "Code  :");
+        DateLabel = new MLabel(120, 90, 70, 25, 20, Color.WHITE, "Date  :");
+        TimeLabel = new MLabel(120, 140, 70, 25, 20, Color.WHITE, "Time  :");
+        
+        Code = new MTextField(190, 40, 120, 25, 20);
+        Date = new MTextField(190, 90, 120, 25, 20);
+        Time = new MTextField(190, 140, 120, 25, 20);
+        
+        Description = new JTextArea("");
+        Description.setBounds(30, 200, 340, 100);
+        Description.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.WHITE), 
+                "Description", 1 ,TitledBorder.DEFAULT_JUSTIFICATION ,new Font("Berlin sans fb", Font.PLAIN, 20) , Color.WHITE));
+        Description.setLineWrap(true);
+        Description.setForeground(Color.WHITE);
+        Description.setFont(new Font("berlin sans fb", Font.PLAIN, 19));
+        Description.setCaretColor(Color.decode("#80ff80"));
+        Description.setBackground(Color.BLACK);
+        Description.setEditable(true);
+        Description.setVisible(true);
+        
+        Search = new MButton(50, 340, 100, 30, "Search");
+        AddButton = new MButton(50, 340, 100, 30, "Edit");
+        CancelButton = new MButton(250, 340, 100, 30, "Cancel");
+        CancelButton.addActionListener(e->EditTaskFrame.dispatchEvent(new WindowEvent(EditTaskFrame, WindowEvent.WINDOW_CLOSING)));
+        
+        
+        EditTaskPanel.add(CodeLabel);
+        EditTaskPanel.add(TimeLabel);
+        EditTaskPanel.add(DateLabel);
+        EditTaskPanel.add(TimeFormatLabel);
+        EditTaskPanel.add(DateFormatLabel);
+        
+        EditTaskPanel.add(Code);
+        EditTaskPanel.add(Description);
+        EditTaskPanel.add(Time);
+        EditTaskPanel.add(Date);
+        
+        EditTaskPanel.add(AddButton);
+        EditTaskPanel.add(CancelButton);
         
         EditTaskFrame.add(EditTaskPanel);
+        
         EditTaskFrame.setVisible(true);
         
     }
@@ -453,13 +528,13 @@ class AddToDoneFrame {
     
     JFrame AddToDoneFrame;
     MPanel AddToDonePanel;
-    JLabel CodeLabel, DescriptionLabel, DateLabel, TimeLabel;
-    JTextField Code, Description, Date, Time;
-    MButton add, cancel;
+    MLabel CodeLabel, NotifyLabel;
+    MTextField Code, Description, Date, Time;
+    MButton AddtoDoneButton, CancelButton;
     
     
     AddToDoneFrame(){
-        AddToDoneFrame = new JFrame();
+        AddToDoneFrame = new JFrame("Add To Done");
         AddToDoneFrame.dispatchEvent(new WindowEvent(AddToDoneFrame, WindowEvent.WINDOW_CLOSING));
         AddToDoneFrame.setLayout(null);
         AddToDoneFrame.getContentPane().setBackground(Color.BLACK);
@@ -469,8 +544,25 @@ class AddToDoneFrame {
         
         AddToDonePanel = new MPanel(50, 25, 400, 400, "Add To Done");
         
+        NotifyLabel = new MLabel(70, 40, 300, 25, 20, Color.WHITE, "Congrats for finishing the Task!");
+        
+        CodeLabel = new MLabel(120, 100, 70, 25, 20, Color.WHITE, "Code  :");
+        
+        Code = new MTextField(190, 100, 120, 25, 20);
+        
+        AddtoDoneButton = new MButton(50, 340, 150, 30, "Add To done");
+        CancelButton = new MButton(250, 340, 100, 30, "Cancel");
+        CancelButton.addActionListener(e->AddToDoneFrame.dispatchEvent(new WindowEvent(AddToDoneFrame, WindowEvent.WINDOW_CLOSING)));
+        
+        AddToDonePanel.add(NotifyLabel);
+        AddToDonePanel.add(CodeLabel);
+        AddToDonePanel.add(Code);
+        AddToDonePanel.add(AddtoDoneButton);
+        AddToDonePanel.add(CancelButton);
+        
         
         AddToDoneFrame.add(AddToDonePanel);
+        
         AddToDoneFrame.setVisible(true);
         
     }
