@@ -525,8 +525,8 @@ class AddToDoneFrame {
     
     JFrame AddToDoneFrame;
     MPanel AddToDonePanel;
-    MLabel CodeLabel, NotifyLabel;
-    MTextField Code, Description, Date, Time;
+    MLabel CodeLabel, NotifyLabel, CongratsLabel;
+    JTextArea Code;
     MButton AddtoDoneButton, CancelButton;
     
     
@@ -541,16 +541,30 @@ class AddToDoneFrame {
         
         AddToDonePanel = new MPanel(50, 25, 400, 400, "Add To Done");
         
-        NotifyLabel = new MLabel(70, 40, 300, 25, 20, Color.WHITE, "Congrats for finishing the Task!");
+        CongratsLabel = new MLabel(70, 40, 300, 25, 20, Color.WHITE, "Congrats for finishing the Task!");
         
         CodeLabel = new MLabel(120, 100, 70, 25, 20, Color.WHITE, "Code  :");
         
-        Code = new MTextField(190, 100, 120, 25, 20);
+        NotifyLabel = new MLabel(120, 190, 300, 25, 18, Color.decode("#80FF80"), "Use \" , \" to seperate Task ID");
+        
+        CodeLabel = new MLabel(50, 80, 70, 25, 20, Color.WHITE, "Code  :");
+        
+        Code = new JTextArea();
+        Code.setBounds(120, 80, 230, 100);
+        Code.setBorder(BorderFactory.createLineBorder(Color.WHITE));
+        Code.setLineWrap(true);
+        Code.setForeground(Color.WHITE);
+        Code.setFont(new Font("berlin sans fb", Font.PLAIN, 19));
+        Code.setCaretColor(Color.decode("#80ff80"));
+        Code.setBackground(Color.BLACK);
+        Code.setEditable(true);
+        Code.setVisible(true);
         
         AddtoDoneButton = new MButton(50, 340, 150, 30, "Add To done");
         CancelButton = new MButton(250, 340, 100, 30, "Cancel");
         CancelButton.addActionListener(e->AddToDoneFrame.dispatchEvent(new WindowEvent(AddToDoneFrame, WindowEvent.WINDOW_CLOSING)));
         
+        AddToDonePanel.add(CongratsLabel);
         AddToDonePanel.add(NotifyLabel);
         AddToDonePanel.add(CodeLabel);
         AddToDonePanel.add(Code);
