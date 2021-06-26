@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
@@ -105,7 +107,6 @@ public class Gui{
                 
                 data.setTab(1);
                 
-                
                 showTask();
                 panel.remove(AddToDone);
                 panel.remove(Accomplished);
@@ -158,6 +159,26 @@ public class Gui{
         
         
         AddTask = new MButton(35, 490, 130, 30, "Add Task") ;
+        AddTask.addMouseListener(new MouseListener() {
+
+            @Override public void mouseEntered(MouseEvent e) {
+                if(e.getSource() == AddTask){
+                    AddTask.setBorder(BorderFactory.createLineBorder(Color.decode("#80ff80"), 2, true));
+                    AddTask.setForeground(Color.decode("#80ff80"));
+                } 
+            }
+            @Override public void mouseExited(MouseEvent e) {
+                if(e.getSource() == AddTask){
+                    AddTask.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2, true));
+                    AddTask.setForeground(Color.WHITE);
+                } 
+            }
+            
+            @Override public void mousePressed(MouseEvent e) {}
+            @Override public void mouseClicked(MouseEvent e) {}
+            @Override public void mouseReleased(MouseEvent e) {}
+        });
+        
         AddTask.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
@@ -165,7 +186,28 @@ public class Gui{
             }
         });
         
+        
         RemoveTask = new MButton(185, 490, 130, 30, "Remove Task");
+        RemoveTask.addMouseListener(new MouseListener() {
+
+            @Override public void mouseEntered(MouseEvent e) {
+                if(e.getSource() == RemoveTask){
+                    RemoveTask.setBorder(BorderFactory.createLineBorder(Color.decode("#80ff80"), 2, true));
+                    RemoveTask.setForeground(Color.decode("#80ff80"));
+                } 
+            }
+            @Override public void mouseExited(MouseEvent e) {
+                if(e.getSource() == RemoveTask){
+                    RemoveTask.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2, true));
+                    RemoveTask.setForeground(Color.WHITE);
+                } 
+            }
+            
+            @Override public void mousePressed(MouseEvent e) {}
+            @Override public void mouseClicked(MouseEvent e) {}
+            @Override public void mouseReleased(MouseEvent e) {}
+        });
+        
         RemoveTask.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
@@ -175,6 +217,26 @@ public class Gui{
         
         
         EditTask = new MButton(335, 490, 130, 30, "Edit Task");
+        EditTask.addMouseListener(new MouseListener() {
+
+            @Override public void mouseEntered(MouseEvent e) {
+                if(e.getSource() == EditTask){
+                    EditTask.setBorder(BorderFactory.createLineBorder(Color.decode("#80ff80"), 2, true));
+                    EditTask.setForeground(Color.decode("#80ff80"));
+                } 
+            }
+            @Override public void mouseExited(MouseEvent e) {
+                if(e.getSource() == EditTask){
+                    EditTask.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2, true));
+                    EditTask.setForeground(Color.WHITE);
+                } 
+            }
+            
+            @Override public void mousePressed(MouseEvent e) {}
+            @Override public void mouseClicked(MouseEvent e) {}
+            @Override public void mouseReleased(MouseEvent e) {}
+        });
+        
         EditTask.addActionListener(new ActionListener() {
             
             public void actionPerformed(ActionEvent e) {
@@ -183,6 +245,25 @@ public class Gui{
         });
         
         AddToDone = new MButton(485, 490, 130, 30, "Add To Done");
+        AddToDone.addMouseListener(new MouseListener() {
+
+            @Override public void mouseEntered(MouseEvent e) {
+                if(e.getSource() == AddToDone){
+                    AddToDone.setBorder(BorderFactory.createLineBorder(Color.decode("#80ff80"), 2, true));
+                    AddToDone.setForeground(Color.decode("#80ff80"));
+                } 
+            }
+            @Override public void mouseExited(MouseEvent e) {
+                if(e.getSource() == AddToDone){
+                    AddToDone.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2, true));
+                    AddToDone.setForeground(Color.WHITE);
+                } 
+            }
+            
+            @Override public void mousePressed(MouseEvent e) {}
+            @Override public void mouseClicked(MouseEvent e) {}
+            @Override public void mouseReleased(MouseEvent e) {}
+        });
         AddToDone.addActionListener(new ActionListener() {
             
             public void actionPerformed(ActionEvent e){
@@ -191,6 +272,25 @@ public class Gui{
         });
         
         Accomplished = new MButton(635, 490, 130, 30, "Done");
+        Accomplished.addMouseListener(new MouseListener() {
+
+            @Override public void mouseEntered(MouseEvent e) {
+                if(e.getSource() == Accomplished){
+                    Accomplished.setBorder(BorderFactory.createLineBorder(Color.decode("#80ff80"), 2, true));
+                    Accomplished.setForeground(Color.decode("#80ff80"));
+                } 
+            }
+            @Override public void mouseExited(MouseEvent e) {
+                if(e.getSource() == Accomplished){
+                    Accomplished.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2, true));
+                    Accomplished.setForeground(Color.WHITE);
+                } 
+            }
+            
+            @Override public void mousePressed(MouseEvent e) {}
+            @Override public void mouseClicked(MouseEvent e) {}
+            @Override public void mouseReleased(MouseEvent e) {}
+        });
         Accomplished.addActionListener(new ActionListener() {
             
             public void actionPerformed(ActionEvent e){

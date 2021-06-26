@@ -82,6 +82,6 @@ class MButton extends JButton {
         this.setFocusable(false);
         this.setBackground(Color.BLACK);
         this.setCursor(Cursor.getPredefinedCursor(12));
-        this.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1, true));
+        this.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2, true));
     }
 }
