@@ -1,6 +1,5 @@
 package todo;
 
-import java.awt.AWTEvent;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -14,7 +13,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 public class Gui{
@@ -30,6 +28,8 @@ public class Gui{
     JScrollPane scroll;
     
     Data data = new Data();
+    ManipulateCSV manipCSV;
+    ManipulateData manipData;
     
     
     Gui(){
@@ -49,7 +49,7 @@ public class Gui{
         titleLabel.setForeground(Color.WHITE);
         
         
-        headerCode = new JLabel("Task ID");
+        headerCode = new JLabel("Code");
         headerCode.setBounds(40, 170, 750, 20);
         headerCode.setFont(new Font("Calibri", Font.BOLD, 22));
         headerCode.setForeground(Color.WHITE);
@@ -71,7 +71,7 @@ public class Gui{
         
         //code  + tab + description + tab + time + tab + data 
         
-        textArea = new JTextArea("123456789012\tMy miming na antok asdwads aa\t2200\t10/20/21"
+        textArea = new JTextArea("1\tMy miming na antok asdwads aa\t2200\t10/20/21"
                 + "\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx");
         textArea.setBounds(28, 200, 750, 280);
         textArea.setLineWrap(true);
@@ -333,10 +333,14 @@ class AddTaskFrame {
     
     JFrame AddTaskFrame;
     MPanel AddTaskPanel;
-    MLabel CodeLabel, DescriptionLabel, DateLabel, TimeLabel, TimeFormatLabel, DateFormatLabel;
+    MLabel CodeLabel, DescriptionLabel, DateLabel, TimeLabel, TimeFormatLabel, DateFormatLabel, SearchResult;
     MTextField Code, Date, Time;
     JTextArea Description;
     MButton AddButton, CancelButton;
+    
+    Data data = new Data();
+    ManipulateCSV manipCSV;
+    ManipulateData manipData;
     
     
     AddTaskFrame(){
@@ -350,6 +354,7 @@ class AddTaskFrame {
         
         AddTaskPanel = new MPanel(50, 35, 400, 400, "Add Task");
         
+        SearchResult = new MLabel(190, 65, 150, 20, 15, Color.decode("#ff8080"), "");
         DateFormatLabel = new MLabel(190, 115, 100, 20, 15, Color.decode("#80ff80"), "DD/MM/YY");
         TimeFormatLabel = new MLabel(190, 165, 100, 20, 15, Color.decode("#80ff80"), "HHMM");
         
@@ -374,8 +379,58 @@ class AddTaskFrame {
         Description.setVisible(true);
         
         AddButton = new MButton(50, 340, 100, 30, "Add");
+        AddButton.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+                SearchResult.setText("");
+                
+                manipCSV = new CreateCSVFile();
+                manipCSV.manipCSV();
+                
+                if(Code.getText().isEmpty()){
+                    SearchResult.setText("Code cannot be empty.");
+                } else {
+                    manipCSV = new ReadCSV();
+                    manipCSV.manipCSV();
+                    
+                    data.setSearch(Code.getText());
+                    
+                    manipData = new SearchInput();
+                    manipData.manipData();
+                    
+                    if(data.getResult()){
+                        SearchResult.setText("Code exists");
+                    } else {
+                        
+                        data.setTaskData(Code.getText(), Description.getText(), Time.getText(), Date.getText());
+                        
+                        manipCSV = new WriteNextLine();
+                        manipCSV.manipCSV();
+                        
+                        Code.setText("");
+                        Time.setText("");
+                        Date.setText("");
+                        Description.setText("");
+                        
+                        AddTaskFrame.dispatchEvent(new WindowEvent(AddTaskFrame, WindowEvent.WINDOW_CLOSING));
+                    }
+                }
+                
+            }
+        });
+        
         CancelButton = new MButton(250, 340, 100, 30, "Cancel");
-        CancelButton.addActionListener(e->AddTaskFrame.dispatchEvent(new WindowEvent(AddTaskFrame, WindowEvent.WINDOW_CLOSING)));
+        CancelButton.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+                SearchResult.setText("");
+                Code.setText("");
+                Time.setText("");
+                Date.setText("");
+                Description.setText("");
+                AddTaskFrame.dispatchEvent(new WindowEvent(AddTaskFrame, WindowEvent.WINDOW_CLOSING));
+            }
+        });
         
         
         AddTaskPanel.add(CodeLabel);
@@ -383,6 +438,7 @@ class AddTaskFrame {
         AddTaskPanel.add(DateLabel);
         AddTaskPanel.add(TimeFormatLabel);
         AddTaskPanel.add(DateFormatLabel);
+        AddTaskPanel.add(SearchResult);
         
         AddTaskPanel.add(Code);
         AddTaskPanel.add(Description);
@@ -405,6 +461,10 @@ class RemoveTaskFrame {
     MLabel CodeLabel, NotifyLabel, Description, Date, Time;
     JTextArea Code;
     MButton RemoveButton, CancelButton;
+    
+    Data data = new Data();
+    ManipulateCSV manipCSV;
+    ManipulateData manipData;
     
     RemoveTaskFrame(){
         
@@ -457,6 +517,10 @@ class EditTaskFrame {
     MTextField Code, Date, Time;
     JTextArea Description;
     MButton AddButton, CancelButton, Search;
+    
+    Data data = new Data();
+    ManipulateCSV manipCSV;
+    ManipulateData manipData;
     
     
     EditTaskFrame(){
@@ -528,6 +592,10 @@ class AddToDoneFrame {
     MLabel CodeLabel, NotifyLabel, CongratsLabel;
     JTextArea Code;
     MButton AddtoDoneButton, CancelButton;
+    
+    Data data = new Data();
+    ManipulateCSV manipCSV;
+    ManipulateData manipData;
     
     
     AddToDoneFrame(){

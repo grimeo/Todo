@@ -46,6 +46,7 @@ class ReadCSV extends Data implements ManipulateCSV{
         try {
             CSVReader reader = new CSVReader(new FileReader(getFilePath()));
             CSVData = reader.readAll();
+            reader.close();
             
         } catch (FileNotFoundException ex) {
             Logger.getLogger(ReadCSV.class.getName()).log(Level.SEVERE, null, ex);
@@ -61,8 +62,9 @@ class WriteNextLine extends Data implements ManipulateCSV{
     @Override
     public void manipCSV() {
         try {
-            CSVWriter writer = new CSVWriter(new FileWriter(getFilePath(), true));
+            CSVWriter writer = new CSVWriter(new FileWriter(getFilePath(), true), ',');
             writer.writeNext(getTask());
+            writer.close();
         } catch (IOException ex) {
             Logger.getLogger(WriteNextLine.class.getName()).log(Level.SEVERE, null, ex);
         }

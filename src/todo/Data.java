@@ -14,29 +14,28 @@ public class Data {
     protected static List<String[]> CSVData;
     private static String ID;
     private static String[] task = {"","","",""};
-    private static int tab; //if 1 this is daily tab, if 2 this is short term tab, if 3 this is long term tab
+    private static int tab; //if 1 == daily tab, if 2 == short term tab, if 3 == long term tab
+    private static int lengthCheck;
     
-    
+    private static String search;
+    private static boolean result; // true if the result of search exists
     Data(){
         
     }
     
     
     
-    
-    
-    
-    
     //setters
     
-    public void setPath(String path){
+    public void setFilePath(String path){
         filePath = path;
     }
     
-    public void  setTaskData(String Id, String todo, String deadline){
+    public void  setTaskData(String Id, String todo, String time, String date){
         task[0] = Id;
         task[1] = todo;
-        task[2] = deadline;
+        task[2] = time;
+        task[3] = date;
     }
     
     public void setTab(int tabType){
@@ -47,6 +46,18 @@ public class Data {
         ID = id;
     }
     
+    public void setLength(int n){
+        lengthCheck = n;
+    }
+    
+    public void setSearch(String s){
+        search = s;
+    }
+    
+    public void setResult(boolean b){
+        result = b;
+    }
+    
     //getters
     
     public String getLogPath(){
@@ -54,6 +65,15 @@ public class Data {
     }
     
     public String getFilePath(){
+        
+        if(getTab()==1){
+            setFilePath(DailyCSV);
+        }else if(getTab()==2){
+            setFilePath(STTask);
+        } else if(getTab()==3){
+            setFilePath(LTTask);
+        }
+        
         return filePath;
     }
     
@@ -79,5 +99,17 @@ public class Data {
     
     public String getID(){
         return ID;
+    }
+    
+    public int getLength(){
+        return lengthCheck;
+    }
+    
+    public String getSearch(){
+        return search;
+    }
+    
+    public boolean getResult(){
+        return result;
     }
 }
