@@ -17,9 +17,6 @@ public interface ManipulateCSV {
 
 class CreateCSVFile extends Data implements ManipulateCSV{
 
-    
-    
-    
     @Override
     public void manipCSV() {
         File file = new File(getFilePath());
@@ -36,7 +33,6 @@ class CreateCSVFile extends Data implements ManipulateCSV{
     }
     
 }
-
 
 class ReadCSV extends Data implements ManipulateCSV{
 
@@ -72,7 +68,23 @@ class WriteNextLine extends Data implements ManipulateCSV{
     
 }
 
-class DeleteCell extends Data implements ManipulateCSV{
+class WriteAll extends Data implements ManipulateCSV {
+
+    @Override
+    public void manipCSV() {
+        try {
+            CSVWriter writer =new CSVWriter(new FileWriter(getFilePath()));
+            writer.writeAll(CSVData);
+            writer.close();
+            
+        } catch (IOException ex) {
+            Logger.getLogger(WriteAll.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+}
+
+class DeleteRow extends Data implements ManipulateCSV{
 
     @Override
     public void manipCSV() {

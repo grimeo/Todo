@@ -382,6 +382,9 @@ class AddTaskFrame {
         AddButton.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
+                
+                data.setResult(false);
+                
                 SearchResult.setText("");
                 
                 manipCSV = new CreateCSVFile();
@@ -458,7 +461,7 @@ class RemoveTaskFrame {
     
     JFrame RemoveFrame;
     MPanel RemoveTaskPanel;
-    MLabel CodeLabel, NotifyLabel, Description, Date, Time;
+    MLabel CodeLabel, NotifyLabel, SearchResult;
     JTextArea Code;
     MButton RemoveButton, CancelButton;
     
@@ -478,12 +481,13 @@ class RemoveTaskFrame {
         
         RemoveTaskPanel = new MPanel(50, 25, 400, 400, "Remove Task");
         
-        NotifyLabel = new MLabel(120, 190, 300, 25, 18, Color.decode("#80FF80"), "Use \" , \" to seperate Task ID");
+        SearchResult = new MLabel(120, 110, 150, 20, 15, Color.decode("#ff8080"), "");
+        //NotifyLabel = new MLabel(120, 50, 300, 25, 18, Color.decode("#80FF80"), "Use \" , \" to seperate Task ID");
         
         CodeLabel = new MLabel(50, 80, 70, 25, 20, Color.WHITE, "Code  :");
         
         Code = new JTextArea();
-        Code.setBounds(120, 80, 230, 100);
+        Code.setBounds(120, 80, 230, 25);
         Code.setBorder(BorderFactory.createLineBorder(Color.WHITE));
         Code.setLineWrap(true);
         Code.setForeground(Color.WHITE);
@@ -494,10 +498,61 @@ class RemoveTaskFrame {
         Code.setVisible(true);
         
         RemoveButton = new MButton(50, 340, 100, 30, "Remove");
-        CancelButton = new MButton(250, 340, 100, 30, "Cancel");
-        CancelButton.addActionListener(e->RemoveFrame.dispatchEvent(new WindowEvent(RemoveFrame, WindowEvent.WINDOW_CLOSING)));
+        RemoveButton.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+                
+                data.setResult(false);
+                
+                SearchResult.setText("");
+                
+                data.setSearch(Code.getText());
+                
+                if(Code.getText().isEmpty()){
+                    SearchResult.setText("InputField is empty.");
+                } else {
+                    
+                    manipCSV = new CreateCSVFile();
+                    manipCSV.manipCSV();
+
+                    manipCSV = new ReadCSV();
+                    manipCSV.manipCSV();
+
+                    manipData = new SearchInput();
+                    manipData.manipData();
+                    
+                    if(data.getResult()==true){
+                        
+                        manipData = new RemoveTask();
+                        manipData.manipData();
+
+                        manipCSV = new WriteAll();
+                        manipCSV.manipCSV();
+
+                        SearchResult.setText("");
+
+                        RemoveFrame.dispatchEvent(new WindowEvent(RemoveFrame, WindowEvent.WINDOW_CLOSING));
+                    
+                    } else {
+                        SearchResult.setText("Task does not exists.");
+                    }
+                }
+            }
+        });
         
-        RemoveTaskPanel.add(NotifyLabel);
+        CancelButton = new MButton(250, 340, 100, 30, "Cancel");
+        CancelButton.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+                SearchResult.setText("");
+                Code.setText("");
+                
+                RemoveFrame.dispatchEvent(new WindowEvent(RemoveFrame, WindowEvent.WINDOW_CLOSING));
+            }
+        });
+        
+        RemoveTaskPanel.add(SearchResult);
+        //RemoveTaskPanel.add(NotifyLabel);
         RemoveTaskPanel.add(CodeLabel);
         RemoveTaskPanel.add(Code);
         RemoveTaskPanel.add(RemoveButton);
