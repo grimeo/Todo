@@ -164,7 +164,7 @@ public class Gui{
         });
         
         
-        AddTask = new MButton(135, 490, 130, 30, "Add Task") ;
+        AddTask = new MButton(135, 487, 130, 30, "Add Task") ;
         AddTask.addMouseListener(new MouseListener() {
 
             @Override public void mouseEntered(MouseEvent e) {
@@ -193,7 +193,7 @@ public class Gui{
         });
         
         
-        RemoveTask = new MButton(535, 490, 130, 30, "Remove Task");
+        RemoveTask = new MButton(535, 487, 130, 30, "Remove Task");
         RemoveTask.addMouseListener(new MouseListener() {
 
             @Override public void mouseEntered(MouseEvent e) {
@@ -222,7 +222,7 @@ public class Gui{
         });
         
         
-        EditTask = new MButton(335, 490, 130, 30, "Edit Task");
+        EditTask = new MButton(335, 487, 130, 30, "Edit Task");
         EditTask.addMouseListener(new MouseListener() {
 
             @Override public void mouseEntered(MouseEvent e) {
