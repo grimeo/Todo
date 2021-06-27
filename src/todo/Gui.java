@@ -635,9 +635,6 @@ class EditTaskFrame {
                     SearchResult.setText("Inputfield is empty.");
                 } else {
                     
-                    
-                    
-                    
                     if(data.getResult()){
                         Description.setText(data.getTask()[1]);
                         Date.setText(data.getTask()[3]);
@@ -656,8 +653,45 @@ class EditTaskFrame {
         });
         
         SaveButton = new MButton(50, 340, 100, 30, "Save");
+        SaveButton.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+                
+                data.setTaskData(Code.getText(),Description.getText(),Time.getText(),Date.getText());
+                
+                manipCSV = new CreateCSVFile();
+                manipCSV.manipCSV();
+                
+                manipCSV = new ReadCSV();
+                manipCSV.manipCSV();
+                
+                manipData = new SaveTask();
+                manipData.manipData();
+                
+                manipCSV = new WriteAll();
+                manipCSV.manipCSV();
+                
+                Description.setText("");
+                Code.setText("");
+                Time.setText("");
+                Date.setText("");
+                
+                EditTaskFrame.dispatchEvent(new WindowEvent(EditTaskFrame, WindowEvent.WINDOW_CLOSING));
+            }
+        });
+        
         CancelButton = new MButton(250, 340, 100, 30, "Cancel");
-        CancelButton.addActionListener(e->EditTaskFrame.dispatchEvent(new WindowEvent(EditTaskFrame, WindowEvent.WINDOW_CLOSING)));
+        CancelButton.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+                Description.setText("");
+                Code.setText("");
+                Time.setText("");
+                Date.setText("");
+                
+                EditTaskFrame.dispatchEvent(new WindowEvent(EditTaskFrame, WindowEvent.WINDOW_CLOSING));
+            }
+        });
         
         EditTaskPanel.add(SearchResult);
         EditTaskPanel.add(CodeLabel);

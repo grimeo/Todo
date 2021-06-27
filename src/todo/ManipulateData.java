@@ -42,7 +42,7 @@ class RemoveTask extends Data implements ManipulateData {
     
 }
 
-class EditTask extends Data implements ManipulateData {
+class SaveTask extends Data implements ManipulateData {
 
     @Override
     public void manipData() {
@@ -50,10 +50,8 @@ class EditTask extends Data implements ManipulateData {
             String[] row = CSVData.get(i);
             for(int j = 0; j < row.length; j++){
                 if(CSVData.get(i)[0].replace("\"","").equals(getSearch())){
-                    setTaskData(CSVData.get(i)[0].replace("\"",""),
-                            CSVData.get(i)[1].replace("\"",""),
-                            CSVData.get(i)[2].replace("\"",""),
-                            CSVData.get(i)[3].replace("\"",""));
+                    CSVData.remove(i);
+                    CSVData.add(getTask());
                     
                 } 
             }
