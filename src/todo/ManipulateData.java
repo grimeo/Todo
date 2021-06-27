@@ -46,7 +46,18 @@ class EditTask extends Data implements ManipulateData {
 
     @Override
     public void manipData() {
-        
+        for(int i = 0; i < CSVData.size(); i++){
+            String[] row = CSVData.get(i);
+            for(int j = 0; j < row.length; j++){
+                if(CSVData.get(i)[0].replace("\"","").equals(getSearch())){
+                    setTaskData(CSVData.get(i)[0].replace("\"",""),
+                            CSVData.get(i)[1].replace("\"",""),
+                            CSVData.get(i)[2].replace("\"",""),
+                            CSVData.get(i)[3].replace("\"",""));
+                    
+                } 
+            }
+        }
     }
     
 }
@@ -70,6 +81,10 @@ class SearchInput extends Data implements ManipulateData {
             for(int j = 0; j < row.length; j++){
                 if(CSVData.get(i)[0].replace("\"","").trim().equals(getSearch())){
                     setResult(true);
+                    setTaskData(CSVData.get(i)[0].replace("\"",""),
+                            CSVData.get(i)[1].replace("\"",""),
+                            CSVData.get(i)[2].replace("\"",""),
+                            CSVData.get(i)[3].replace("\"",""));
                 } else {
                     
                 }

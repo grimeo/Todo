@@ -568,10 +568,10 @@ class EditTaskFrame {
     
     JFrame EditTaskFrame;
     MPanel EditTaskPanel;
-    MLabel CodeLabel, DescriptionLabel, DateLabel, TimeLabel, TimeFormatLabel, DateFormatLabel;
+    MLabel CodeLabel, DescriptionLabel, DateLabel, TimeLabel, TimeFormatLabel, DateFormatLabel, SearchResult;
     MTextField Code, Date, Time;
     JTextArea Description;
-    MButton AddButton, CancelButton, Search;
+    MButton SaveButton, CancelButton, Search;
     
     Data data = new Data();
     ManipulateCSV manipCSV;
@@ -589,6 +589,7 @@ class EditTaskFrame {
         
         EditTaskPanel = new MPanel(50, 35, 400, 400, "Edit Task");
         
+        SearchResult = new MLabel(120, 67, 150, 20, 15, Color.decode("#ff8080"), "");
         DateFormatLabel = new MLabel(120, 115, 100, 20, 15, Color.decode("#80ff80"), "DD/MM/YY");
         TimeFormatLabel = new MLabel(120, 165, 100, 20, 15, Color.decode("#80ff80"), "HHMM");
         
@@ -613,11 +614,52 @@ class EditTaskFrame {
         Description.setVisible(true);
         
         Search = new MButton(260, 40, 100, 25, "Search");
+        Search.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+                
+                data.setResult(false);
+                
+                data.setSearch(Code.getText());
+                
+                manipCSV = new CreateCSVFile();
+                manipCSV.manipCSV();
+
+                manipCSV = new ReadCSV();
+                manipCSV.manipCSV();
+                
+                manipData = new SearchInput();
+                manipData.manipData();
+                
+                if(Code.getText().isEmpty()){
+                    SearchResult.setText("Inputfield is empty.");
+                } else {
+                    
+                    
+                    
+                    
+                    if(data.getResult()){
+                        Description.setText(data.getTask()[1]);
+                        Date.setText(data.getTask()[3]);
+                        Time.setText(data.getTask()[2]);
+                        
+                        SearchResult.setText("");
+                        
+                        data.setTaskData("","","","");
+                        
+                    } else {
+                        SearchResult.setText("No task found.");
+                    }
+                }
+                
+            }
+        });
         
-        AddButton = new MButton(50, 340, 100, 30, "Edit");
+        SaveButton = new MButton(50, 340, 100, 30, "Save");
         CancelButton = new MButton(250, 340, 100, 30, "Cancel");
         CancelButton.addActionListener(e->EditTaskFrame.dispatchEvent(new WindowEvent(EditTaskFrame, WindowEvent.WINDOW_CLOSING)));
         
+        EditTaskPanel.add(SearchResult);
         EditTaskPanel.add(CodeLabel);
         EditTaskPanel.add(TimeLabel);
         EditTaskPanel.add(DateLabel);
@@ -630,7 +672,7 @@ class EditTaskFrame {
         EditTaskPanel.add(Date);
         
         EditTaskPanel.add(Search);
-        EditTaskPanel.add(AddButton);
+        EditTaskPanel.add(SaveButton);
         EditTaskPanel.add(CancelButton);
         
         EditTaskFrame.add(EditTaskPanel);
