@@ -7,13 +7,18 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
+import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableCellRenderer;
 
 public class Gui{
     
@@ -25,6 +30,7 @@ public class Gui{
     JLabel titleLabel, welcomeLabel, headerCode, headerDescription, headerTime, headerDate;
     MLabel sentence1,sentence2,sentence3;
     JTextArea textArea;
+    JTable table;
     JScrollPane scroll;
     
     Data data = new Data();
@@ -60,7 +66,7 @@ public class Gui{
         headerDescription.setForeground(Color.WHITE);
         
         headerTime = new JLabel("Time");
-        headerTime.setBounds(540, 170, 750, 20);
+        headerTime.setBounds(570, 170, 750, 20);
         headerTime.setFont(new Font("Calibri", Font.BOLD, 22));
         headerTime.setForeground(Color.WHITE);
         
@@ -70,21 +76,57 @@ public class Gui{
         headerDate.setForeground(Color.WHITE);
         
         //code  + tab + description + tab + time + tab + data 
+        Object[][] row = {{"12354","masdwasde","2200","06/27/21"}, {"me","me","me","me"}, {"me","me","me","me"}, {"me","me","me","me"}, {"me","me","me","me"}, {"me","me","me","me"}};
         
-        textArea = new JTextArea("1\tMy miming na antok asdwads aa\t2200\t10/20/21"
-                + "\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx");
-        textArea.setBounds(28, 200, 750, 280);
-        textArea.setLineWrap(true);
-        textArea.setForeground(Color.WHITE);
-        textArea.setFont(new Font("berlin sans fb", Font.PLAIN, 20));
-        textArea.setBackground(Color.BLACK);
-        textArea.setColumns(3);
-        textArea.setEditable(false);
-        textArea.setVisible(true);
+        Object[] column = {"me", "me", "me", "me"};
         
-        scroll = new JScrollPane (textArea);
+        DefaultTableCellRenderer  renderToCenter = new  DefaultTableCellRenderer();
+        renderToCenter.setHorizontalAlignment(SwingConstants.CENTER);
+        
+        table = new JTable(row, column);
+        
+        table.setAutoResizeMode(table.AUTO_RESIZE_OFF);
+        table.getColumnModel().getColumn(0).setPreferredWidth(100);
+        
+        table.getColumnModel().getColumn(1).setPreferredWidth(420);
+        
+        table.getColumnModel().getColumn(2).setPreferredWidth(100);
+        table.getColumnModel().getColumn(2).setCellRenderer(renderToCenter);
+        
+        table.getColumnModel().getColumn(3).setPreferredWidth(102);
+        table.getColumnModel().getColumn(3).setCellRenderer(renderToCenter);
+        
+        table.getTableHeader().setOpaque(false);
+        
+        table.getTableHeader().setForeground(Color.WHITE);
+        table.getTableHeader().setBackground(Color.BLACK);
+        table.getTableHeader().setUI(null);
+        
+        table.setRowHeight(25);
+        table.setFont(new Font("berlin sans fb", Font.PLAIN, 20));
+        //table.setForeground(Color.WHITE);
+        table.setCellSelectionEnabled(false);
+        table.setEnabled(false);
+        table.setGridColor(Color.WHITE);
+        
+        table.selectAll();
+        table.setBackground(Color.BLACK);
+        table.setForeground(Color.WHITE);
+        
+//        textArea = new JTextArea("1\tMy miming na antok asdwads aa\t2200\t10/20/21"
+//                + "\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx\nxx");
+//        textArea.setBounds(28, 200, 750, 280);
+//        textArea.setLineWrap(true);
+//        textArea.setForeground(Color.WHITE);
+//        textArea.setFont(new Font("berlin sans fb", Font.PLAIN, 20));
+//        textArea.setBackground(Color.BLACK);
+//        textArea.setColumns(3);
+//        textArea.setEditable(false);
+//        textArea.setVisible(true);
+        
+        scroll = new JScrollPane (table);
         scroll.setBounds(28, 200, 740, 280);
-        scroll.setBackground(Color.BLACK);
+        scroll.getViewport().setBackground(Color.BLACK);
         scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         
         //welcome panel
@@ -618,6 +660,10 @@ class EditTaskFrame {
 
             public void actionPerformed(ActionEvent e) {
                 
+                Description.setText("");
+                Date.setText("");
+                Time.setText("");
+                
                 data.setResult(false);
                 
                 data.setSearch(Code.getText());
@@ -656,7 +702,6 @@ class EditTaskFrame {
         SaveButton.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
-                
                 
                 if (data.getResult()){
                     data.setTaskData(Code.getText(),Description.getText(),Time.getText(),Date.getText());
@@ -749,12 +794,12 @@ class AddToDoneFrame {
         
         CodeLabel = new MLabel(120, 100, 70, 25, 20, Color.WHITE, "Code  :");
         
-        NotifyLabel = new MLabel(120, 190, 300, 25, 18, Color.decode("#80FF80"), "Use \" , \" to seperate Task ID");
+        //NotifyLabel = new MLabel(120, 190, 300, 25, 18, Color.decode("#80FF80"), "Use \" , \" to seperate Task ID");
         
         CodeLabel = new MLabel(50, 80, 70, 25, 20, Color.WHITE, "Code  :");
         
         Code = new JTextArea();
-        Code.setBounds(120, 80, 230, 100);
+        Code.setBounds(120, 80, 230, 25);
         Code.setBorder(BorderFactory.createLineBorder(Color.WHITE));
         Code.setLineWrap(true);
         Code.setForeground(Color.WHITE);
@@ -769,7 +814,7 @@ class AddToDoneFrame {
         CancelButton.addActionListener(e->AddToDoneFrame.dispatchEvent(new WindowEvent(AddToDoneFrame, WindowEvent.WINDOW_CLOSING)));
         
         AddToDonePanel.add(CongratsLabel);
-        AddToDonePanel.add(NotifyLabel);
+        //AddToDonePanel.add(NotifyLabel);
         AddToDonePanel.add(CodeLabel);
         AddToDonePanel.add(Code);
         AddToDonePanel.add(AddtoDoneButton);
