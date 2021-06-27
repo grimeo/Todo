@@ -10,7 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JTextArea;
 import javax.swing.border.TitledBorder;
 
-public class ModifierButtonsGui {
+public class ModifierGui {
     
 }
 
