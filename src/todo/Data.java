@@ -17,6 +17,8 @@ public class Data {
     private static int tab; //if 1 == daily tab, if 2 == short term tab, if 3 == long term tab
     private static int lengthCheck;
     
+    private static Object[][] Data;
+    
     private static String search;
     private static boolean result; // true if the result of search exists
     Data(){
@@ -26,6 +28,10 @@ public class Data {
     
     
     //setters
+    
+    public void setObject(Object[][] o){
+        Data = o;
+    }
     
     public void setFilePath(String path){
         filePath = path;
@@ -59,6 +65,14 @@ public class Data {
     }
     
     //getters
+    
+    public List<String[]> getList(){
+        return CSVData;
+    }
+    
+    public Object[][] getObject(){
+        return Data;
+    }
     
     public String getLogPath(){
         return LogPath;
