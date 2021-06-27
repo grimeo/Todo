@@ -12,15 +12,13 @@ public class Data {
     private static String filePath;
     
     protected static List<String[]> CSVData;
-    private static String ID;
     private static String[] task = {"","","",""};
     private static int tab; //if 1 == daily tab, if 2 == short term tab, if 3 == long term tab
-    private static int lengthCheck;
-    
-    private static Object[][] Data;
     
     private static String search;
     private static boolean result; // true if the result of search exists
+    
+    private static boolean isTableRefreshed;
     Data(){
         
     }
@@ -28,10 +26,6 @@ public class Data {
     
     
     //setters
-    
-    public void setObject(Object[][] o){
-        Data = o;
-    }
     
     public void setFilePath(String path){
         filePath = path;
@@ -48,14 +42,6 @@ public class Data {
         tab = tabType;
     }
     
-    public void setID(String id){
-        ID = id;
-    }
-    
-    public void setLength(int n){
-        lengthCheck = n;
-    }
-    
     public void setSearch(String s){
         search = s;
     }
@@ -64,18 +50,12 @@ public class Data {
         result = b;
     }
     
+    
     //getters
+    
     
     public List<String[]> getList(){
         return CSVData;
-    }
-    
-    public Object[][] getObject(){
-        return Data;
-    }
-    
-    public String getLogPath(){
-        return LogPath;
     }
     
     public String getFilePath(){
@@ -109,14 +89,6 @@ public class Data {
     
     public int getTab(){
         return tab;
-    }
-    
-    public String getID(){
-        return ID;
-    }
-    
-    public int getLength(){
-        return lengthCheck;
     }
     
     public String getSearch(){

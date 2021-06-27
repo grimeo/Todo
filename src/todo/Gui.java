@@ -17,6 +17,8 @@ import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 public class Gui{
     
@@ -35,6 +37,11 @@ public class Gui{
     ManipulateCSV manipCSV;
     ManipulateData manipData;
     
+    private int secret;
+    Gui(int n){
+        secret = n;
+        secret = secret+n;
+    }
     
     Gui(){
         
@@ -73,49 +80,6 @@ public class Gui{
         headerDate.setFont(new Font("Calibri", Font.BOLD, 22));
         headerDate.setForeground(Color.WHITE);
         
-        Object[][] tableData = {};
-        
-        Object[] column = {"code", "desc", "time", "date"};// this header will not be display
-        
-        DefaultTableCellRenderer  renderToCenter = new  DefaultTableCellRenderer();
-        renderToCenter.setHorizontalAlignment(SwingConstants.CENTER);
-        
-        table = new JTable(tableData, column );
-        
-        table.setAutoResizeMode(table.AUTO_RESIZE_OFF);
-        table.getColumnModel().getColumn(0).setPreferredWidth(100);
-        
-        table.getColumnModel().getColumn(1).setPreferredWidth(420);
-        
-        table.getColumnModel().getColumn(2).setPreferredWidth(100);
-        table.getColumnModel().getColumn(2).setCellRenderer(renderToCenter);
-        
-        table.getColumnModel().getColumn(3).setPreferredWidth(102);
-        table.getColumnModel().getColumn(3).setCellRenderer(renderToCenter);
-        
-        table.getTableHeader().setOpaque(false);
-        
-        table.getTableHeader().setForeground(Color.WHITE);
-        table.getTableHeader().setBackground(Color.BLACK);
-        table.getTableHeader().setUI(null); // this will not show the header
-        
-        table.setRowHeight(25);
-        table.setFont(new Font("berlin sans fb", Font.PLAIN, 20));
-        //table.setForeground(Color.WHITE);
-        table.setCellSelectionEnabled(false);
-        table.setEnabled(false);
-        table.setGridColor(Color.WHITE);
-        
-        table.selectAll();
-        table.setBackground(Color.BLACK);
-        table.setForeground(Color.WHITE);
-        
-        
-        scroll = new JScrollPane (table);
-        scroll.setBounds(28, 200, 740, 280);
-        scroll.getViewport().setBackground(Color.BLACK);
-        scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        
         //welcome panel
         welcomePanel = new JPanel();
         welcomePanel.setBounds(0, 150, 800, 410);
@@ -138,6 +102,12 @@ public class Gui{
                 
                 data.setTab(1);
                 
+                manipCSV = new CreateCSVFile();
+                manipCSV.manipCSV();
+                
+                manipCSV = new ReadCSV();
+                manipCSV.manipCSV();
+                
                 showTask();
                 frame.repaint();
                 
@@ -148,6 +118,8 @@ public class Gui{
                 dailyButton.setForeground(Color.decode("#80ff80"));
                 shortTermButton.setForeground(Color.WHITE);
                 longTermButton.setForeground(Color.WHITE);
+                
+                table.repaint();
             }
         });
         shortTermButton = new MButton(310, 70, "Short Term");
@@ -157,7 +129,14 @@ public class Gui{
                 
                 data.setTab(2);
                 
+                manipCSV = new CreateCSVFile();
+                manipCSV.manipCSV();
+                
+                manipCSV = new ReadCSV();
+                manipCSV.manipCSV();
+                
                 showTask();
+                
                 dailyButton.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.WHITE));
                 shortTermButton.setBorder(BorderFactory.createMatteBorder(0, 0, 4, 0, Color.decode("#80ff80")));
                 longTermButton.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.WHITE));
@@ -165,6 +144,8 @@ public class Gui{
                 dailyButton.setForeground(Color.WHITE);
                 shortTermButton.setForeground(Color.decode("#80ff80"));
                 longTermButton.setForeground(Color.WHITE);
+                
+                table.repaint();
             }
         });
         longTermButton = new MButton(600, 70, "Long Term");
@@ -173,6 +154,12 @@ public class Gui{
             public void actionPerformed(ActionEvent ActionListener) {
                 
                 data.setTab(3);
+                
+                manipCSV = new CreateCSVFile();
+                manipCSV.manipCSV();
+                
+                manipCSV = new ReadCSV();
+                manipCSV.manipCSV();
                 
                 showTask();
                 
@@ -183,6 +170,8 @@ public class Gui{
                 dailyButton.setForeground(Color.WHITE);
                 shortTermButton.setForeground(Color.WHITE);
                 longTermButton.setForeground(Color.decode("#80ff80"));
+                
+                table.repaint();
             }
         });
         
@@ -286,6 +275,55 @@ public class Gui{
     
         public void showTask(){
             
+            manipCSV = new CreateCSVFile();
+            manipCSV.manipCSV();
+            
+            manipCSV = new ReadCSV();
+            manipCSV.manipCSV();
+            
+            String[] columnName = {"m","m","m","m"};
+            
+            TableModel tableModel = new DefaultTableModel(data.getList().toArray(new Object[][] {}),columnName);
+            
+            table = new JTable(tableModel);
+            
+            DefaultTableCellRenderer  renderToCenter = new  DefaultTableCellRenderer();
+            renderToCenter.setHorizontalAlignment(SwingConstants.CENTER);
+
+            table.setAutoResizeMode(table.AUTO_RESIZE_OFF);
+            table.getColumnModel().getColumn(0).setPreferredWidth(100);
+
+            table.getColumnModel().getColumn(1).setPreferredWidth(420);
+
+            table.getColumnModel().getColumn(2).setPreferredWidth(100);
+            table.getColumnModel().getColumn(2).setCellRenderer(renderToCenter);
+
+            table.getColumnModel().getColumn(3).setPreferredWidth(102);
+            table.getColumnModel().getColumn(3).setCellRenderer(renderToCenter);
+
+            table.getTableHeader().setOpaque(false);
+
+            table.getTableHeader().setForeground(Color.WHITE);
+            table.getTableHeader().setBackground(Color.BLACK);
+            table.getTableHeader().setUI(null); // this will not show the header
+
+            table.setRowHeight(25);
+            table.setFont(new Font("berlin sans fb", Font.PLAIN, 20));
+            //table.setForeground(Color.WHITE);
+            table.setCellSelectionEnabled(false);
+            table.setEnabled(false);
+            table.setGridColor(Color.WHITE);
+
+            table.selectAll();
+            table.setBackground(Color.BLACK);
+            table.setForeground(Color.WHITE);
+
+
+            scroll = new JScrollPane (table);
+            scroll.setBounds(28, 200, 740, 280);
+            scroll.getViewport().setBackground(Color.BLACK);
+            scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+            
             panel.add(AddTask);
             panel.add(RemoveTask);
             panel.add(EditTask);
@@ -296,11 +334,12 @@ public class Gui{
             panel.add(headerDescription);
             panel.add(headerTime);
             panel.add(headerDate);
-            panel.repaint();
+            table.repaint();
         }
+        
 }
 
-class AddTaskFrame {
+class AddTaskFrame{
     
     JFrame AddTaskFrame;
     MPanel AddTaskPanel;
@@ -312,7 +351,6 @@ class AddTaskFrame {
     Data data = new Data();
     ManipulateCSV manipCSV;
     ManipulateData manipData;
-    
     
     AddTaskFrame(){
         AddTaskFrame = new JFrame("Add Task");
@@ -386,6 +424,7 @@ class AddTaskFrame {
                         Date.setText("");
                         Description.setText("");
                         
+                        
                         AddTaskFrame.dispatchEvent(new WindowEvent(AddTaskFrame, WindowEvent.WINDOW_CLOSING));
                     }
                 }
@@ -428,7 +467,7 @@ class AddTaskFrame {
     }
     
 }
-class RemoveTaskFrame {
+class RemoveTaskFrame{
     
     JFrame RemoveFrame;
     MPanel RemoveTaskPanel;
@@ -480,7 +519,7 @@ class RemoveTaskFrame {
                 data.setSearch(Code.getText());
                 
                 if(Code.getText().isEmpty()){
-                    SearchResult.setText("InputField is empty.");
+                    SearchResult.setText("Code is empty.");
                 } else {
                     
                     manipCSV = new CreateCSVFile();
@@ -501,7 +540,7 @@ class RemoveTaskFrame {
                         manipCSV.manipCSV();
 
                         SearchResult.setText("");
-
+                        
                         RemoveFrame.dispatchEvent(new WindowEvent(RemoveFrame, WindowEvent.WINDOW_CLOSING));
                     
                     } else {
@@ -535,7 +574,7 @@ class RemoveTaskFrame {
     }
 }
 
-class EditTaskFrame {
+class EditTaskFrame{
     
     JFrame EditTaskFrame;
     MPanel EditTaskPanel;
@@ -547,7 +586,6 @@ class EditTaskFrame {
     Data data = new Data();
     ManipulateCSV manipCSV;
     ManipulateData manipData;
-    
     
     EditTaskFrame(){
         EditTaskFrame = new JFrame("Edit Task");
@@ -651,7 +689,8 @@ class EditTaskFrame {
                     Code.setText("");
                     Time.setText("");
                     Date.setText("");
-
+                   
+                    
                     EditTaskFrame.dispatchEvent(new WindowEvent(EditTaskFrame, WindowEvent.WINDOW_CLOSING));
                 } else {
                     EditTaskFrame.dispatchEvent(new WindowEvent(EditTaskFrame, WindowEvent.WINDOW_CLOSING));
@@ -694,4 +733,3 @@ class EditTaskFrame {
         
     }
 }
-

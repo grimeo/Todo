@@ -23,7 +23,7 @@ class RemoveTask extends Data implements ManipulateData {
             for(int j = 0; j < row.length; j++){
                 if(CSVData.get(i)[0].replace("\"","").equals(getSearch())){
                     CSVData.remove(i);
-                    
+                    break;
                 } 
             }
         }

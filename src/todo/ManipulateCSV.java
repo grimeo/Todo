@@ -59,7 +59,7 @@ class WriteNextLine extends Data implements ManipulateCSV{
     public void manipCSV() {
         try {
             @SuppressWarnings("deprecation")
-            CSVWriter writer = new CSVWriter(new FileWriter(getFilePath(), true), ',');
+            CSVWriter writer = new CSVWriter(new FileWriter(getFilePath(), true));
             writer.writeNext(getTask());
             writer.close();
         } catch (IOException ex) {
