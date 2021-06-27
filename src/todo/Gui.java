@@ -48,22 +48,22 @@ public class Gui{
         
         
         headerCode = new JLabel("Code");
-        headerCode.setBounds(40, 170, 750, 20);
+        headerCode.setBounds(40, 175, 750, 20);
         headerCode.setFont(new Font("Calibri", Font.BOLD, 22));
         headerCode.setForeground(Color.WHITE);
         
         headerDescription = new JLabel("Description");
-        headerDescription.setBounds(250, 170, 750, 20);
+        headerDescription.setBounds(250, 175, 750, 20);
         headerDescription.setFont(new Font("Calibri", Font.BOLD, 22));
         headerDescription.setForeground(Color.WHITE);
         
         headerTime = new JLabel("Time");
-        headerTime.setBounds(570, 170, 750, 20);
+        headerTime.setBounds(570, 175, 750, 20);
         headerTime.setFont(new Font("Calibri", Font.BOLD, 22));
         headerTime.setForeground(Color.WHITE);
         
         headerDate = new JLabel("Date");
-        headerDate.setBounds(680, 170, 750, 20);
+        headerDate.setBounds(680, 175, 750, 20);
         headerDate.setFont(new Font("Calibri", Font.BOLD, 22));
         headerDate.setForeground(Color.WHITE);
         
@@ -263,11 +263,14 @@ public class Gui{
 
             @Override
             public void run() {
-            showTask();
-            refreshDisplay();
-
+                
+                if(data.getRefreshTableBool()){
+                    showTask();
+                    refreshDisplay();
+                    data.setRefreshTableBool(false);
+                }
             }
-        }, 5000,1000);
+        }, 3000,500);
         
     }
     

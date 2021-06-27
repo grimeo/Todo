@@ -99,6 +99,7 @@ class AddTaskFrame{
                         Date.setText("");
                         Description.setText("");
                         
+                        data.setRefreshTableBool(true);
                         
                         AddTaskFrame.dispatchEvent(new WindowEvent(AddTaskFrame, WindowEvent.WINDOW_CLOSING));
                     }
@@ -215,6 +216,8 @@ class RemoveTaskFrame{
                         manipCSV.manipCSV();
 
                         SearchResult.setText("");
+                        
+                        data.setRefreshTableBool(true);
                         
                         RemoveFrame.dispatchEvent(new WindowEvent(RemoveFrame, WindowEvent.WINDOW_CLOSING));
                     
@@ -365,6 +368,7 @@ class EditTaskFrame{
                     Time.setText("");
                     Date.setText("");
                    
+                    data.setRefreshTableBool(true);
                     
                     EditTaskFrame.dispatchEvent(new WindowEvent(EditTaskFrame, WindowEvent.WINDOW_CLOSING));
                 } else {
