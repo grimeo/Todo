@@ -273,7 +273,7 @@ public class Gui{
             }
         });
         
-        Accomplished = new MButton(635, 490, 130, 30, "Done");
+        Accomplished = new MButton(635, 490, 130, 30, "Done Tasks");
         Accomplished.addMouseListener(new MouseListener() {
 
             @Override public void mouseEntered(MouseEvent e) {
@@ -652,31 +652,36 @@ class EditTaskFrame {
             }
         });
         
-        SaveButton = new MButton(50, 340, 100, 30, "Save");
+        SaveButton = new MButton(50, 340, 100, 30, "Done");
         SaveButton.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
                 
-                data.setTaskData(Code.getText(),Description.getText(),Time.getText(),Date.getText());
                 
-                manipCSV = new CreateCSVFile();
-                manipCSV.manipCSV();
+                if (data.getResult()){
+                    data.setTaskData(Code.getText(),Description.getText(),Time.getText(),Date.getText());
                 
-                manipCSV = new ReadCSV();
-                manipCSV.manipCSV();
-                
-                manipData = new SaveTask();
-                manipData.manipData();
-                
-                manipCSV = new WriteAll();
-                manipCSV.manipCSV();
-                
-                Description.setText("");
-                Code.setText("");
-                Time.setText("");
-                Date.setText("");
-                
-                EditTaskFrame.dispatchEvent(new WindowEvent(EditTaskFrame, WindowEvent.WINDOW_CLOSING));
+                    manipCSV = new CreateCSVFile();
+                    manipCSV.manipCSV();
+
+                    manipCSV = new ReadCSV();
+                    manipCSV.manipCSV();
+
+                    manipData = new SaveTask();
+                    manipData.manipData();
+
+                    manipCSV = new WriteAll();
+                    manipCSV.manipCSV();
+
+                    Description.setText("");
+                    Code.setText("");
+                    Time.setText("");
+                    Date.setText("");
+
+                    EditTaskFrame.dispatchEvent(new WindowEvent(EditTaskFrame, WindowEvent.WINDOW_CLOSING));
+                } else {
+                    EditTaskFrame.dispatchEvent(new WindowEvent(EditTaskFrame, WindowEvent.WINDOW_CLOSING));
+                }
             }
         });
         

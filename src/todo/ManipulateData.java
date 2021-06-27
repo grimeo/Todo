@@ -1,19 +1,8 @@
-
 package todo;
 
-import java.util.Iterator;
 
 public interface ManipulateData {
     public void manipData();
-}
-
-class CreateLogs extends Data implements ManipulateData {
-
-    @Override
-    public void manipData() {
-        
-    }
-    
 }
 
 class AddTask extends Data implements ManipulateData {

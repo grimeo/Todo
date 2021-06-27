@@ -13,6 +13,7 @@ import javax.swing.border.TitledBorder;
 public class MUtilities {
     
 }
+@SuppressWarnings("serial")
 class MPanel extends JPanel {
     
     public MPanel(){
@@ -31,6 +32,7 @@ class MPanel extends JPanel {
     
 }
 
+@SuppressWarnings("serial")
 class MLabel extends JLabel {
     public MLabel(int x, int y, int w, int h, int size, Color color, String text){
         this.setBounds(x, y, w, h);
@@ -41,6 +43,7 @@ class MLabel extends JLabel {
 }
 
 
+@SuppressWarnings("serial")
 class MTextField extends JTextField {
     
     public MTextField(int x, int y, int w, int h, int size){
@@ -52,6 +55,7 @@ class MTextField extends JTextField {
     }
 }
 
+@SuppressWarnings("serial")
 class MButton extends JButton {
     
     public MButton(int x , int y, String text){
