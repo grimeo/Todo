@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Timer;
+import java.util.TimerTask;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -20,7 +22,7 @@ import javax.swing.table.TableModel;
 
 public class Gui{
     
-    JFrame frame;
+    
     JPanel welcomePanel;
     MPanel panel;
     MButton longTermButton, shortTermButton, dailyButton,
@@ -35,20 +37,7 @@ public class Gui{
     ManipulateCSV manipCSV;
     ManipulateData manipData;
     
-    private int secret;
-    Gui(int n){
-        secret = n;
-        secret = secret+n;
-    }
-    
     Gui(){
-        
-        frame = new JFrame("Task Master"); 
-        frame.setLayout(null);
-        frame.setSize(800,560);
-        frame.setLocationRelativeTo(null);
-        frame.setResizable(false);
-        frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
         
         panel = new MPanel();
         
@@ -267,9 +256,19 @@ public class Gui{
         panel.add(longTermButton);
         panel.add(titleLabel);
         panel.add(welcomePanel);
-        frame.add(panel);
         
-        frame.setVisible(true);
+        
+        Timer t = new Timer( );
+        t.scheduleAtFixedRate(new TimerTask() {
+
+            @Override
+            public void run() {
+            showTask();
+            refreshDisplay();
+
+            }
+        }, 5000,1000);
+        
     }
     
         public void showTask(){
