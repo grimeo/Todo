@@ -48,22 +48,22 @@ public class Gui{
         
         
         headerCode = new JLabel("Code");
-        headerCode.setBounds(40, 175, 750, 20);
+        headerCode.setBounds(40, 180, 750, 22);
         headerCode.setFont(new Font("Calibri", Font.BOLD, 22));
         headerCode.setForeground(Color.WHITE);
         
         headerDescription = new JLabel("Description");
-        headerDescription.setBounds(250, 175, 750, 20);
+        headerDescription.setBounds(250, 180, 750, 22);
         headerDescription.setFont(new Font("Calibri", Font.BOLD, 22));
         headerDescription.setForeground(Color.WHITE);
         
         headerTime = new JLabel("Time");
-        headerTime.setBounds(570, 175, 750, 20);
+        headerTime.setBounds(570, 180, 750, 22);
         headerTime.setFont(new Font("Calibri", Font.BOLD, 22));
         headerTime.setForeground(Color.WHITE);
         
         headerDate = new JLabel("Date");
-        headerDate.setBounds(680, 175, 750, 20);
+        headerDate.setBounds(680, 180, 750, 22);
         headerDate.setFont(new Font("Calibri", Font.BOLD, 22));
         headerDate.setForeground(Color.WHITE);
         
