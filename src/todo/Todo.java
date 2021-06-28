@@ -1,5 +1,6 @@
 package todo;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 public class Todo {
@@ -11,6 +12,8 @@ public class Todo {
         Panel = new Gui();
         
         frame = new JFrame("Task Master"); 
+        frame.setIconImage(new ImageIcon(getClass().getResource("taskIcon.PNG")).getImage());
+
         frame.setLayout(null);
         frame.setSize(800,560);
         frame.setLocationRelativeTo(null);
