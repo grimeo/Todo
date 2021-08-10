@@ -7,7 +7,6 @@ public class Data {
     private final String DailyCSV = "DailyTaskList.csv";
     private final String STTask = "ShortTermTaskList.csv";
     private final String LTTask = "LongTermTaskList.csv";
-    private final String LogPath = "Logs.csv";
     
     private static String filePath;
     

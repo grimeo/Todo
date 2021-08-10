@@ -9,7 +9,6 @@ import java.awt.event.MouseListener;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.BorderFactory;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -21,7 +20,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 public class Gui{
-    
     
     JPanel welcomePanel;
     MPanel panel;
@@ -36,6 +34,14 @@ public class Gui{
     Data data = new Data();
     ManipulateCSV manipCSV;
     ManipulateData manipData;
+    
+    private boolean isTableShown = false;
+    
+    private int num;
+    Gui(int n){
+        num = n;
+        
+    }
     
     Gui(){
         
@@ -82,21 +88,62 @@ public class Gui{
         sentence3 = new MLabel(100, 190, 650, 65, 33, Color.decode("#00FF00"), "You need fear and an approaching deadline.");
         welcomePanel.add(sentence3);
         
+        String[] colHeadings = {"1","2","3","4"};
+        int numRows = 20 ;
+        DefaultTableModel model = new DefaultTableModel(numRows, colHeadings.length) ;
+        JTable table = new JTable(model);
+        
+        DefaultTableCellRenderer  renderToCenter = new  DefaultTableCellRenderer();
+            renderToCenter.setHorizontalAlignment(SwingConstants.CENTER);
+
+            table.setAutoResizeMode(table.AUTO_RESIZE_OFF);
+            table.getColumnModel().getColumn(0).setPreferredWidth(100);
+
+            table.getColumnModel().getColumn(1).setPreferredWidth(420);
+
+            table.getColumnModel().getColumn(2).setPreferredWidth(100);
+            table.getColumnModel().getColumn(2).setCellRenderer(renderToCenter);
+
+            table.getColumnModel().getColumn(3).setPreferredWidth(102);
+            table.getColumnModel().getColumn(3).setCellRenderer(renderToCenter);
+
+            table.getTableHeader().setOpaque(false);
+
+            table.getTableHeader().setForeground(Color.WHITE);
+            table.getTableHeader().setBackground(Color.BLACK);
+            table.getTableHeader().setUI(null); // this will not show the header
+
+            table.setRowHeight(25);
+            table.setFont(new Font("berlin sans fb", Font.PLAIN, 20));
+            //table.setForeground(Color.WHITE);
+            table.setCellSelectionEnabled(false);
+            table.setEnabled(false);
+            table.setGridColor(Color.WHITE);
+
+            table.selectAll();
+            table.setBackground(Color.BLACK);
+            table.setForeground(Color.WHITE);
+        
+        scroll = new JScrollPane (table);
+        scroll.setBounds(28, 200, 740, 280);
+        scroll.getViewport().setBackground(Color.BLACK);
+        scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        
         dailyButton = new MButton(35, 70, "Daily");
         dailyButton.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent ActionListener) {
                 
-                data.setTab(1);
-                
-                manipCSV = new CreateCSVFile();
-                manipCSV.manipCSV();
-                
-                manipCSV = new ReadCSV();
-                manipCSV.manipCSV();
-                
-                showTask();
-                refreshDisplay();
+                if(isTableShown){
+                    panel.remove(scroll);
+                    scroll.remove(table);
+                    
+                    data.setTab(1);
+                    showTable();
+                } else {
+                    data.setTab(1);
+                    showTable();
+                }
                 
                 dailyButton.setBorder(BorderFactory.createMatteBorder(0, 0, 4, 0, Color.decode("#80ff80")));
                 shortTermButton.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.WHITE));
@@ -106,7 +153,6 @@ public class Gui{
                 shortTermButton.setForeground(Color.WHITE);
                 longTermButton.setForeground(Color.WHITE);
                 
-                
             }
         });
         shortTermButton = new MButton(310, 70, "Short Term");
@@ -114,16 +160,17 @@ public class Gui{
 
             public void actionPerformed(ActionEvent ActionListener) {
                 
-                data.setTab(2);
-                
-                manipCSV = new CreateCSVFile();
-                manipCSV.manipCSV();
-                
-                manipCSV = new ReadCSV();
-                manipCSV.manipCSV();
-                
-                showTask();
-                refreshDisplay();
+                if(isTableShown){
+                    panel.remove(scroll);
+                    scroll.remove(table);
+                    
+                    data.setTab(2);
+                    showTable();
+                    
+                } else {
+                    data.setTab(2);
+                    showTable();
+                }
                 
                 dailyButton.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.WHITE));
                 shortTermButton.setBorder(BorderFactory.createMatteBorder(0, 0, 4, 0, Color.decode("#80ff80")));
@@ -133,7 +180,6 @@ public class Gui{
                 shortTermButton.setForeground(Color.decode("#80ff80"));
                 longTermButton.setForeground(Color.WHITE);
                 
-                
             }
         });
         longTermButton = new MButton(600, 70, "Long Term");
@@ -141,16 +187,18 @@ public class Gui{
 
             public void actionPerformed(ActionEvent ActionListener) {
                 
-                data.setTab(3);
+                if(isTableShown){
+                    panel.remove(scroll);
+                    scroll.remove(table);
+                    
+                    data.setTab(3);
+                    showTable();
+                    
+                } else {
+                    data.setTab(3);
+                    showTable();
+                }
                 
-                manipCSV = new CreateCSVFile();
-                manipCSV.manipCSV();
-                
-                manipCSV = new ReadCSV();
-                manipCSV.manipCSV();
-                
-                showTask();
-                refreshDisplay();
                 dailyButton.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.WHITE));
                 shortTermButton.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.WHITE));
                 longTermButton.setBorder(BorderFactory.createMatteBorder(0, 0, 4, 0, Color.decode("#80ff80")));
@@ -159,10 +207,8 @@ public class Gui{
                 shortTermButton.setForeground(Color.WHITE);
                 longTermButton.setForeground(Color.decode("#80ff80"));
                 
-                
             }
         });
-        
         
         AddTask = new MButton(135, 487, 130, 30, "Add Task") ;
         AddTask.addMouseListener(new MouseListener() {
@@ -192,7 +238,6 @@ public class Gui{
             }
         });
         
-        
         RemoveTask = new MButton(535, 487, 130, 30, "Remove Task");
         RemoveTask.addMouseListener(new MouseListener() {
 
@@ -220,7 +265,6 @@ public class Gui{
                 new RemoveTaskFrame();
             }
         });
-        
         
         EditTask = new MButton(335, 487, 130, 30, "Edit Task");
         EditTask.addMouseListener(new MouseListener() {
@@ -250,13 +294,11 @@ public class Gui{
             }
         });
         
-        
         panel.add(dailyButton);
         panel.add(shortTermButton);
         panel.add(longTermButton);
         panel.add(titleLabel);
         panel.add(welcomePanel);
-        
         
         Timer t = new Timer( );
         t.scheduleAtFixedRate(new TimerTask() {
@@ -265,29 +307,72 @@ public class Gui{
             public void run() {
                 
                 if(data.getRefreshTableBool()){
-                    showTask();
-                    refreshDisplay();
-                    data.setRefreshTableBool(false);
+                    
+                panel.remove(scroll);
+                scroll.remove(table);
+                showTable();
+                
+                data.setRefreshTableBool(false);
                 }
             }
         }, 3000,500);
         
     }
     
-        public void showTask(){
+        public void showTable(){
+            
+            updateTable();
+            
+            if(!isTableShown){
+                panel.remove(welcomePanel);
+                
+                panel.add(headerCode);
+                panel.add(headerDescription);
+                panel.add(headerTime);
+                panel.add(headerDate);
+                
+                panel.add(AddTask);
+                panel.add(RemoveTask);
+                panel.add(EditTask);
+            } 
+            panel.add(scroll);
+            
+            panel.repaint();
+            scroll.repaint();
+            table.repaint();
+            
+            
+            isTableShown = true;
+        }
+        
+        public void updateTable(){
             
             manipCSV = new CreateCSVFile();
             manipCSV.manipCSV();
-            
+                
             manipCSV = new ReadCSV();
             manipCSV.manipCSV();
             
-            String[] columnName = {"m","m","m","m"};
+            String[] columnName = {"this","will","not","show"};
             
-            TableModel tableModel = new DefaultTableModel(data.getList().toArray(new Object[][] {}),columnName);
+            TableModel tm = new DefaultTableModel(data.getList().toArray(new Object[][] {}),columnName);
             
-            table = new JTable(tableModel);
+            table = new JTable(tm);
             
+            table.setModel(tm);
+            
+            createTableGui();
+            
+            scroll = new JScrollPane (table);
+            scroll.setBounds(28, 200, 740, 280);
+            scroll.getViewport().setBackground(Color.BLACK);
+            scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        
+            panel.add(scroll);
+            
+        }
+        
+        public void createTableGui(){
             DefaultTableCellRenderer  renderToCenter = new  DefaultTableCellRenderer();
             renderToCenter.setHorizontalAlignment(SwingConstants.CENTER);
 
@@ -318,38 +403,7 @@ public class Gui{
             table.selectAll();
             table.setBackground(Color.BLACK);
             table.setForeground(Color.WHITE);
-
-
-            scroll = new JScrollPane (table);
-            scroll.setBounds(28, 200, 740, 280);
-            scroll.getViewport().setBackground(Color.BLACK);
-            scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-            
-            panel.add(AddTask);
-            panel.add(RemoveTask);
-            panel.add(EditTask);
-            
-            panel.remove(welcomePanel);
-            panel.add(scroll);
-            panel.add(headerCode);
-            panel.add(headerDescription);
-            panel.add(headerTime);
-            panel.add(headerDate);
-            
         }
         
-        public void refreshDisplay(){
-            headerCode.repaint(1);
-            headerDescription.repaint(1);
-            headerTime.repaint(1);
-            headerDate.repaint(1);
-            
-            AddTask.repaint(1);
-            RemoveTask.repaint(1);
-            EditTask.repaint(1);
-            panel.remove(scroll);
-            panel.add(scroll);
-            table.repaint();
-        }
         
 }
