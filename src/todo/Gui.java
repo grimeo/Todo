@@ -6,8 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.Timer;
-import java.util.TimerTask;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -21,27 +19,21 @@ import javax.swing.table.TableModel;
 
 public class Gui{
     
-    JPanel welcomePanel;
-    MPanel panel;
-    MButton longTermButton, shortTermButton, dailyButton,
+    private static  JPanel welcomePanel;
+    static MPanel panel;
+    private static MButton longTermButton, shortTermButton, dailyButton,
             AddTask, RemoveTask, EditTask;
-    JLabel titleLabel, welcomeLabel, headerCode, headerDescription, headerTime, headerDate;
-    MLabel sentence1,sentence2,sentence3;
-    JTextArea textArea;
-    JTable table;
-    JScrollPane scroll;
+    private static JLabel titleLabel, welcomeLabel, headerCode, headerDescription, headerTime, headerDate;
+    private static MLabel sentence1,sentence2,sentence3;
+    private static JTextArea textArea;
+    private static JTable table;
+    private static JScrollPane scroll;
     
-    Data data = new Data();
-    ManipulateCSV manipCSV;
-    ManipulateData manipData;
+    private static Data data = new Data();
+    private static ManipulateCSV manipCSV;
+    private static ManipulateData manipData;
     
-    private boolean isTableShown = false;
-    
-    private int num;
-    Gui(int n){
-        num = n;
-        
-    }
+    private static boolean isTableShown = false;
     
     Gui(){
         
@@ -51,7 +43,6 @@ public class Gui{
         titleLabel.setBounds(300, 0, 200, 65);
         titleLabel.setFont(new Font("berlin sans fb", Font.PLAIN, 40));
         titleLabel.setForeground(Color.WHITE);
-        
         
         headerCode = new JLabel("Code");
         headerCode.setBounds(40, 180, 750, 22);
@@ -300,26 +291,15 @@ public class Gui{
         panel.add(titleLabel);
         panel.add(welcomePanel);
         
-        Timer t = new Timer( );
-        t.scheduleAtFixedRate(new TimerTask() {
-
-            @Override
-            public void run() {
-                
-                if(data.getRefreshTableBool()){
-                    
-                panel.remove(scroll);
-                scroll.remove(table);
-                showTable();
-                
-                data.setRefreshTableBool(false);
-                }
-            }
-        }, 3000,500);
-        
     }
     
-        public void showTable(){
+    public static void refresh(){
+            panel.remove(scroll);
+            scroll.remove(table);
+            showTable();
+        }
+    
+    public static void showTable(){
             
             updateTable();
             
@@ -345,7 +325,7 @@ public class Gui{
             isTableShown = true;
         }
         
-        public void updateTable(){
+        public static void updateTable(){
             
             manipCSV = new CreateCSVFile();
             manipCSV.manipCSV();
@@ -372,7 +352,7 @@ public class Gui{
             
         }
         
-        public void createTableGui(){
+        public static void createTableGui(){
             DefaultTableCellRenderer  renderToCenter = new  DefaultTableCellRenderer();
             renderToCenter.setHorizontalAlignment(SwingConstants.CENTER);
 

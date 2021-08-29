@@ -99,7 +99,7 @@ class AddTaskFrame{
                         Date.setText("");
                         Description.setText("");
                         
-                        data.setRefreshTableBool(true);
+                        Gui.refresh();
                         
                         AddTaskFrame.dispatchEvent(new WindowEvent(AddTaskFrame, WindowEvent.WINDOW_CLOSING));
                     }
@@ -217,7 +217,7 @@ class RemoveTaskFrame{
 
                         SearchResult.setText("");
                         
-                        data.setRefreshTableBool(true);
+                        Gui.refresh();
                         
                         RemoveFrame.dispatchEvent(new WindowEvent(RemoveFrame, WindowEvent.WINDOW_CLOSING));
                     
@@ -368,7 +368,7 @@ class EditTaskFrame{
                     Time.setText("");
                     Date.setText("");
                    
-                    data.setRefreshTableBool(true);
+                    Gui.refresh();
                     
                     EditTaskFrame.dispatchEvent(new WindowEvent(EditTaskFrame, WindowEvent.WINDOW_CLOSING));
                 } else {

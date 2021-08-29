@@ -17,12 +17,9 @@ public class Data {
     private static String search;
     private static boolean result; // true if the result of search exists
     
-    private static boolean doRefreshTable;
     Data(){
         
     }
-    
-    
     
     //setters
     
@@ -49,16 +46,7 @@ public class Data {
         result = b;
     }
     
-    public void setRefreshTableBool(boolean b){
-        doRefreshTable = b;
-    }
-    
     //getters
-    
-    public boolean getRefreshTableBool(){
-        return doRefreshTable;
-    }
-    
     
     public List<String[]> getList(){
         return CSVData;
